@@ -1,0 +1,1600 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  /* SafeEat AI Custom Colors */
+  --color-safe: var(--safe);
+  --color-safe-foreground: var(--safe-foreground);
+  --color-warn: var(--warn);
+  --color-warn-foreground: var(--warn-foreground);
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+}
+
+/* ============================================================
+   SAFEAT AI — Premium Design System
+   Light mode as :root default, dark mode via .dark class
+   next-themes manages adding/removing .dark on <html>
+   ============================================================ */
+
+:root {
+  --radius: 0.75rem;
+  /* LIGHT MODE — Clean, bright, premium (Apple Health style) */
+  --background: oklch(0.98 0.005 145);
+  --foreground: oklch(0.12 0.02 145);
+  --card: oklch(0.97 0.005 145 / 0.9);
+  --card-foreground: oklch(0.12 0.02 145);
+  --popover: oklch(0.97 0.005 145);
+  --popover-foreground: oklch(0.12 0.02 145);
+  /* Green primary — vibrant emerald */
+  --primary: oklch(0.55 0.22 145);
+  --primary-foreground: oklch(0.98 0.005 145);
+  --secondary: oklch(0.94 0.01 145);
+  --secondary-foreground: oklch(0.2 0.02 145);
+  --muted: oklch(0.94 0.01 145);
+  --muted-foreground: oklch(0.45 0.02 145);
+  --accent: oklch(0.94 0.015 145);
+  --accent-foreground: oklch(0.12 0.02 145);
+  --destructive: oklch(0.65 0.22 25);
+  --border: oklch(0.88 0.01 145);
+  --input: oklch(0.9 0.01 145);
+  --ring: oklch(0.55 0.22 145);
+  /* SafeEat AI custom — vivid safety colors for light mode */
+  --safe: oklch(0.55 0.22 145);
+  --safe-foreground: oklch(0.98 0.005 145);
+  --warn: oklch(0.78 0.16 75);
+  --warn-foreground: oklch(0.15 0.03 75);
+  --danger: oklch(0.62 0.22 25);
+  --danger-foreground: oklch(0.98 0.005 145);
+  --chart-1: oklch(0.55 0.22 145);
+  --chart-2: oklch(0.6 0.16 160);
+  --chart-3: oklch(0.75 0.16 75);
+  --chart-4: oklch(0.55 0.16 200);
+  --chart-5: oklch(0.62 0.22 25);
+  --sidebar: oklch(0.96 0.005 145);
+  --sidebar-foreground: oklch(0.12 0.02 145);
+  --sidebar-primary: oklch(0.55 0.22 145);
+  --sidebar-primary-foreground: oklch(0.98 0.005 145);
+  --sidebar-accent: oklch(0.94 0.01 145);
+  --sidebar-accent-foreground: oklch(0.12 0.02 145);
+  --sidebar-border: oklch(0.88 0.01 145);
+  --sidebar-ring: oklch(0.55 0.22 145);
+}
+
+/* DARK MODE — activated when .dark class is on <html> */
+.dark {
+  --background: oklch(0.1 0.015 145);
+  --foreground: oklch(0.95 0.01 145);
+  --card: oklch(0.14 0.02 145 / 0.8);
+  --card-foreground: oklch(0.95 0.01 145);
+  --popover: oklch(0.14 0.02 145);
+  --popover-foreground: oklch(0.95 0.01 145);
+  --primary: oklch(0.65 0.22 145);
+  --primary-foreground: oklch(0.08 0.02 145);
+  --secondary: oklch(0.18 0.02 145);
+  --secondary-foreground: oklch(0.9 0.01 145);
+  --muted: oklch(0.18 0.015 145);
+  --muted-foreground: oklch(0.6 0.02 145);
+  --accent: oklch(0.18 0.03 145);
+  --accent-foreground: oklch(0.95 0.01 145);
+  --destructive: oklch(0.65 0.22 25);
+  --border: oklch(0.22 0.02 145);
+  --input: oklch(0.2 0.02 145);
+  --ring: oklch(0.65 0.22 145);
+  --safe: oklch(0.65 0.22 145);
+  --safe-foreground: oklch(0.08 0.02 145);
+  --warn: oklch(0.78 0.16 75);
+  --warn-foreground: oklch(0.15 0.03 75);
+  --danger: oklch(0.62 0.22 25);
+  --danger-foreground: oklch(0.99 0.002 25);
+  --chart-1: oklch(0.65 0.22 145);
+  --chart-2: oklch(0.7 0.16 160);
+  --chart-3: oklch(0.78 0.16 75);
+  --chart-4: oklch(0.65 0.16 200);
+  --chart-5: oklch(0.62 0.22 25);
+  --sidebar: oklch(0.12 0.015 145);
+  --sidebar-foreground: oklch(0.95 0.01 145);
+  --sidebar-primary: oklch(0.65 0.22 145);
+  --sidebar-primary-foreground: oklch(0.08 0.02 145);
+  --sidebar-accent: oklch(0.18 0.03 145);
+  --sidebar-accent-foreground: oklch(0.95 0.01 145);
+  --sidebar-border: oklch(0.22 0.02 145);
+  --sidebar-ring: oklch(0.65 0.22 145);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ============================================================
+   MOBILE APP NATIVE STYLES
+   Android + iOS PWA optimized
+   ============================================================ */
+
+html {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  color-scheme: dark light;
+  touch-action: manipulation;
+}
+
+body {
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: contain;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  background: var(--background);
+  /* iOS safe area support */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* iOS PWA: prevent rubber-band scrolling */
+@supports (-webkit-touch-callout: none) {
+  html, body {
+    overscroll-behavior: none !important;
+    position: fixed !important;
+    overflow: hidden !important;
+  }
+}
+
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+*::-webkit-scrollbar {
+  display: none !important;
+}
+
+button, a, [role="button"], nav, .no-select {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+p, span, h1, h2, h3, h4, h5, h6, li {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+button:active, a:active, [role="button"]:active {
+  opacity: 0.85;
+  transition: opacity 0.05s ease;
+}
+
+.overflow-y-auto, .overflow-auto, [class*="overflow-"] {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.safe-area-top { padding-top: env(safe-area-inset-top, 0px); }
+.safe-area-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+.app-shell {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  background: var(--background);
+}
+
+.app-content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+/* ============================================================
+   PREMIUM STATUS BAR
+   ============================================================ */
+.status-bar {
+  height: env(safe-area-inset-top, 0px);
+  min-height: 0px;
+  background: var(--background);
+  border-bottom: 1px solid oklch(0.2 0.02 145 / 0.5);
+}
+
+/* ============================================================
+   PREMIUM TAB BAR — Frosted Glass
+   ============================================================ */
+.tab-bar {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: oklch(0.12 0.015 145 / 0.85);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  border-top: 1px solid oklch(0.25 0.02 145 / 0.6);
+}
+
+/* ============================================================
+   PREMIUM GLASS CARD SYSTEM
+   ============================================================ */
+.glass-card {
+  background: oklch(0.16 0.02 145 / 0.6);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid oklch(0.28 0.03 145 / 0.4);
+  border-radius: 20px;
+  box-shadow:
+    0 4px 24px oklch(0 0 0 / 0.2),
+    0 1px 4px oklch(0 0 0 / 0.1),
+    inset 0 1px 0 oklch(1 0 0 / 0.04);
+  isolation: isolate;
+}
+
+.glass-card-elevated {
+  background: oklch(0.17 0.02 145 / 0.7);
+  backdrop-filter: blur(32px) saturate(160%);
+  -webkit-backdrop-filter: blur(32px) saturate(160%);
+  border: 1px solid oklch(0.3 0.03 145 / 0.5);
+  border-radius: 24px;
+  box-shadow:
+    0 8px 40px oklch(0 0 0 / 0.3),
+    0 2px 8px oklch(0 0 0 / 0.15),
+    inset 0 1px 0 oklch(1 0 0 / 0.06);
+}
+
+.glass-card-subtle {
+  background: oklch(0.14 0.02 145 / 0.4);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  border: 1px solid oklch(0.24 0.02 145 / 0.3);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px oklch(0 0 0 / 0.15);
+}
+
+/* Mobile card — dark glass style */
+.mobile-card {
+  background: oklch(0.16 0.02 145 / 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid oklch(0.25 0.02 145 / 0.4);
+  box-shadow: 0 4px 20px oklch(0 0 0 / 0.2);
+}
+
+/* Mobile input — dark glass style */
+.mobile-input {
+  border-radius: 14px;
+  border: 1px solid oklch(0.24 0.02 145);
+  padding: 12px 16px;
+  font-size: 16px;
+  background: oklch(0.14 0.02 145 / 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+  color: oklch(0.95 0.01 145);
+}
+
+.mobile-input:focus {
+  border-color: oklch(0.65 0.22 145);
+  box-shadow: 0 0 0 3px oklch(0.65 0.22 145 / 0.2), 0 0 20px oklch(0.65 0.22 145 / 0.08);
+  background: oklch(0.16 0.02 145 / 0.8);
+}
+
+/* ============================================================
+   PREMIUM GRADIENTS
+   ============================================================ */
+.gradient-primary {
+  background: linear-gradient(135deg, oklch(0.55 0.22 145), oklch(0.65 0.2 160));
+}
+
+.gradient-safe {
+  background: linear-gradient(135deg, oklch(0.55 0.22 145), oklch(0.7 0.18 155));
+}
+
+.gradient-warn {
+  background: linear-gradient(135deg, oklch(0.78 0.16 75), oklch(0.82 0.14 85));
+}
+
+.gradient-danger {
+  background: linear-gradient(135deg, oklch(0.58 0.22 25), oklch(0.65 0.2 15));
+}
+
+.gradient-premium-hero {
+  background: linear-gradient(135deg, oklch(0.12 0.02 145), oklch(0.16 0.04 145), oklch(0.12 0.02 145));
+}
+
+.gradient-card-shine {
+  background: linear-gradient(135deg, oklch(1 0 0 / 0.03) 0%, oklch(1 0 0 / 0) 50%, oklch(1 0 0 / 0.02) 100%);
+}
+
+/* ============================================================
+   PREMIUM BUTTON STYLES
+   ============================================================ */
+.btn-premium {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, oklch(0.55 0.22 145), oklch(0.65 0.2 160));
+  color: oklch(0.08 0.02 145);
+  font-weight: 700;
+  border-radius: 16px;
+  box-shadow:
+    0 4px 16px oklch(0.55 0.22 145 / 0.3),
+    0 0 24px oklch(0.55 0.22 145 / 0.1);
+  transition: all 0.25s ease;
+}
+
+.btn-premium:active {
+  transform: scale(0.97);
+  box-shadow:
+    0 2px 8px oklch(0.55 0.22 145 / 0.2),
+    0 0 12px oklch(0.55 0.22 145 / 0.08);
+}
+
+.btn-premium::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, oklch(1 0 0 / 0.15) 0%, oklch(1 0 0 / 0) 50%);
+  pointer-events: none;
+}
+
+.btn-glass {
+  background: oklch(0.18 0.02 145 / 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid oklch(0.3 0.03 145 / 0.5);
+  color: oklch(0.95 0.01 145);
+  font-weight: 600;
+  border-radius: 14px;
+  transition: all 0.2s ease;
+}
+
+.btn-glass:active {
+  background: oklch(0.2 0.02 145 / 0.8);
+  transform: scale(0.97);
+}
+
+/* ============================================================
+   PREMIUM ANIMATIONS
+   ============================================================ */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.65 0.22 145 / 0.4); }
+  50% { box-shadow: 0 0 24px 8px oklch(0.65 0.22 145 / 0.15); }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes card-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes badge-glow {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.65 0.22 145 / 0.3); }
+  50% { box-shadow: 0 0 10px 3px oklch(0.65 0.22 145 / 0.15); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-scan-line { animation: scan-line 2s ease-in-out infinite; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.premium-card-animate { animation: card-entrance 0.5s ease-out both; }
+.premium-badge-glow { animation: badge-glow 3s ease-in-out infinite; }
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, oklch(0.65 0.22 145 / 0.1) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+/* Safety Score Circle Animation */
+@keyframes score-fill {
+  from { stroke-dashoffset: 283; }
+}
+
+.score-circle {
+  animation: score-fill 1.5s ease-out forwards;
+}
+
+/* Glass morphism effect */
+.glass {
+  background: oklch(0.15 0.01 145 / 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid oklch(1 0 0 / 0.08);
+}
+
+/* Haptic tap feedback */
+@keyframes haptic-tap {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+
+.tap-feedback {
+  transition: transform 0.1s ease;
+}
+.tap-feedback:active {
+  animation: haptic-tap 0.15s ease;
+}
+
+/* iOS-style large title header */
+.large-title {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+
+.section-header {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: oklch(0.55 0.02 145);
+}
+
+/* Mobile sheet (bottom sheet style) */
+.mobile-sheet {
+  border-radius: 24px 24px 0 0;
+  background: oklch(0.14 0.02 145);
+  border-top: 1px solid oklch(0.25 0.02 145 / 0.5);
+  box-shadow: 0 -8px 40px oklch(0 0 0 / 0.5);
+}
+
+/* Home indicator spacer */
+.home-indicator {
+  height: 34px;
+  background: oklch(0.1 0.015 145);
+}
+
+/* Premium gradient text */
+.premium-gradient-text {
+  background: linear-gradient(135deg, oklch(0.55 0.22 145), oklch(0.7 0.18 160));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   LUXURY ACTION CARD — Ultra-Premium Flagship Mobile Style
+   Glassmorphism + Glow + Floating icons + 28px corners
+   Apple App Store featured app quality
+   ============================================================ */
+
+.luxury-card {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+  border: 1px solid oklch(1 0 0 / 0.08);
+  box-shadow:
+    0 6px 24px oklch(0 0 0 / 0.35),
+    0 2px 6px oklch(0 0 0 / 0.2),
+    inset 0 1px 0 oklch(1 0 0 / 0.06),
+    inset 0 -1px 0 oklch(0 0 0 / 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+}
+
+.luxury-card:active {
+  box-shadow:
+    0 2px 12px oklch(0 0 0 / 0.25),
+    0 1px 3px oklch(0 0 0 / 0.12),
+    inset 0 1px 0 oklch(1 0 0 / 0.03);
+  border-color: oklch(1 0 0 / 0.14);
+  transform: scale(0.96);
+}
+
+/* Desktop hover — cinematic lift with glow */
+@media (hover: hover) {
+  .luxury-card:hover {
+    box-shadow:
+      0 16px 48px oklch(0 0 0 / 0.4),
+      0 4px 12px oklch(0 0 0 / 0.2),
+      0 0 32px oklch(0.65 0.22 145 / 0.08),
+      inset 0 1px 0 oklch(1 0 0 / 0.08);
+    transform: translateY(-4px) scale(1.01);
+    border-color: oklch(1 0 0 / 0.14);
+  }
+
+  .luxury-card:hover .clean-card-img {
+    transform: scale(1.05);
+  }
+}
+
+/* Light mode */
+html:not(.dark) .luxury-card {
+  border-color: oklch(0 0 0 / 0.06);
+  box-shadow:
+    0 4px 18px oklch(0 0 0 / 0.1),
+    0 1px 4px oklch(0 0 0 / 0.06),
+    inset 0 1px 0 oklch(1 0 0 / 0.7);
+}
+
+html:not(.dark) .luxury-card:active {
+  box-shadow:
+    0 2px 8px oklch(0 0 0 / 0.06),
+    0 0.5px 2px oklch(0 0 0 / 0.04),
+    inset 0 1px 0 oklch(1 0 0 / 0.5);
+}
+
+@media (hover: hover) {
+  html:not(.dark) .luxury-card:hover {
+    box-shadow:
+      0 12px 36px oklch(0 0 0 / 0.14),
+      0 2px 8px oklch(0 0 0 / 0.08),
+      0 0 20px oklch(0.55 0.22 145 / 0.06),
+      inset 0 1px 0 oklch(1 0 0 / 0.9);
+    transform: translateY(-4px) scale(1.01);
+  }
+}
+
+/* ── Luxury Trending Card ── */
+.luxury-trending-card {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+  border: 1px solid oklch(1 0 0 / 0.06);
+  box-shadow:
+    0 4px 20px oklch(0 0 0 / 0.3),
+    0 1px 4px oklch(0 0 0 / 0.15),
+    inset 0 1px 0 oklch(1 0 0 / 0.04);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+}
+
+.luxury-trending-card:active {
+  box-shadow:
+    0 2px 10px oklch(0 0 0 / 0.2),
+    0 0.5px 2px oklch(0 0 0 / 0.1),
+    inset 0 1px 0 oklch(1 0 0 / 0.02);
+  border-color: oklch(1 0 0 / 0.12);
+}
+
+html:not(.dark) .luxury-trending-card {
+  border-color: oklch(0 0 0 / 0.06);
+  box-shadow:
+    0 3px 14px oklch(0 0 0 / 0.08),
+    0 1px 3px oklch(0 0 0 / 0.05),
+    inset 0 1px 0 oklch(1 0 0 / 0.6);
+}
+
+html:not(.dark) .luxury-trending-card:active {
+  box-shadow:
+    0 1px 6px oklch(0 0 0 / 0.05),
+    0 0.5px 1px oklch(0 0 0 / 0.03),
+    inset 0 1px 0 oklch(1 0 0 / 0.4);
+}
+
+/* ── Luxury Logo Frame ── */
+.luxury-logo-frame {
+  background: oklch(1 0 0 / 0.08);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid oklch(1 0 0 / 0.1);
+  box-shadow:
+    0 2px 12px oklch(0 0 0 / 0.2),
+    inset 0 1px 0 oklch(1 0 0 / 0.06);
+}
+
+html:not(.dark) .luxury-logo-frame {
+  background: oklch(0 0 0 / 0.03);
+  border-color: oklch(0 0 0 / 0.06);
+  box-shadow: 0 2px 8px oklch(0 0 0 / 0.06);
+}
+
+/* ── Luxury AI Badge — Animated Gradient Pill ── */
+.luxury-ai-badge {
+  background: linear-gradient(135deg, oklch(0.55 0.22 145), oklch(0.65 0.2 160));
+  box-shadow:
+    0 2px 10px oklch(0.55 0.22 145 / 0.3),
+    0 0 16px oklch(0.55 0.22 145 / 0.1);
+  animation: luxury-badge-pulse 3s ease-in-out infinite;
+}
+
+.luxury-ai-badge-sm {
+  background: oklch(1 0 0 / 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid oklch(1 0 0 / 0.1);
+  box-shadow: 0 1px 6px oklch(0 0 0 / 0.2);
+}
+
+html:not(.dark) .luxury-ai-badge-sm {
+  background: oklch(0.55 0.22 145 / 0.1);
+  border-color: oklch(0.55 0.22 145 / 0.15);
+}
+
+/* ── Luxury Crown Badge ── */
+.luxury-crown-badge {
+  background: linear-gradient(135deg, oklch(0.85 0.16 80), oklch(0.78 0.14 60));
+  box-shadow:
+    0 2px 8px oklch(0.8 0.16 80 / 0.3),
+    0 0 12px oklch(0.8 0.16 80 / 0.15);
+  animation: luxury-crown-glow 2.5s ease-in-out infinite;
+}
+
+@keyframes luxury-crown-glow {
+  0%, 100% { box-shadow: 0 2px 8px oklch(0.8 0.16 80 / 0.3), 0 0 12px oklch(0.8 0.16 80 / 0.15); }
+  50% { box-shadow: 0 2px 12px oklch(0.8 0.16 80 / 0.4), 0 0 20px oklch(0.8 0.16 80 / 0.2); }
+}
+
+@keyframes luxury-badge-pulse {
+  0%, 100% { box-shadow: 0 2px 10px oklch(0.55 0.22 145 / 0.3), 0 0 16px oklch(0.55 0.22 145 / 0.1); }
+  50% { box-shadow: 0 2px 16px oklch(0.55 0.22 145 / 0.4), 0 0 24px oklch(0.55 0.22 145 / 0.15); }
+}
+
+/* ── Floating Icon Animation ── */
+.luxury-icon-float {
+  animation: luxury-icon-hover 4s ease-in-out infinite;
+}
+
+@keyframes luxury-icon-hover {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+/* ── AI Pulse Animation for Sparkles ── */
+@keyframes ai-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.85); }
+}
+
+.animate-ai-pulse {
+  animation: ai-pulse 2s ease-in-out infinite;
+}
+
+/* ── Subtle Border Glow per Accent Color ── */
+.luxury-glow-blue { animation: luxury-glow-blue 4s ease-in-out infinite; animation-delay: 0s; }
+.luxury-glow-violet { animation: luxury-glow-violet 4s ease-in-out infinite; animation-delay: 0.5s; }
+.luxury-glow-emerald { animation: luxury-glow-emerald 4s ease-in-out infinite; animation-delay: 1s; }
+.luxury-glow-teal { animation: luxury-glow-teal 4s ease-in-out infinite; animation-delay: 1.5s; }
+.luxury-glow-rose { animation: luxury-glow-rose 4s ease-in-out infinite; animation-delay: 0.3s; }
+.luxury-glow-pink { animation: luxury-glow-pink 4s ease-in-out infinite; animation-delay: 0.8s; }
+.luxury-glow-orange { animation: luxury-glow-orange 4s ease-in-out infinite; animation-delay: 1.2s; }
+.luxury-glow-sky { animation: luxury-glow-sky 4s ease-in-out infinite; animation-delay: 1.7s; }
+
+@keyframes luxury-glow-blue {
+  0%, 100% { box-shadow: 0 6px 24px oklch(0 0 0 / 0.35), 0 0 8px oklch(0.62 0.2 250 / 0.08); }
+  50% { box-shadow: 0 6px 24px oklch(0 0 0 / 0.35), 0 0 18px oklch(0.62 0.2 250 / 0.15); }
+}
+@keyframes luxury-glow-violet {
+  0%, 100% { box-shadow: 0 6px 24px oklch(0 0 0 / 0.35), 0 0 8px oklch(0.6 0.22 300 / 0.08); }
+  50% { box-shadow: 0 6px 24px oklch(0 0 0 / 0.35), 0 0 18px oklch(0.6 0.22 300 / 0.15); }
+}
+@keyframes luxury-glow-emerald {
+  0%, 100% { box-shadow: 0 6px 24px oklch(0 0 0 / 0.35), 0 0 8px oklch(0.65 0.22 145 / 0.08); }
+  50% { box-shadow: 0 6px 24px oklch(0 0 0 / 0.35), 0 0 18px oklch(0.65 0.22 145 / 0.15); }
+}
+@keyframes luxury-glow-teal {
+  0%, 100% { box-shadow: 0 6px 24px oklch(0 0 0 / 0.35), 0 0 8px oklch(0.65 0.15 185 / 0.08); }
+  50% { box-shadow: 0 6px 24px oklch(0 0 0 / 0.35), 0 0 18px oklch(0.65 0.15 185 / 0.15); }
+}
+@keyframes luxury-glow-rose {
+  0%, 100% { box-shadow: 0 6px 24px oklch(0 0 0 / 0.35), 0 0 8px oklch(0.62 0.22 15 / 0.08); }
+  50% { box-shadow: 0 6px 24px oklch(0 0 0 / 0.35), 0 0 18px oklch(0.62 0.22 15 / 0.15); }
+}
+@keyframes luxury-glow-pink {
+  0%, 100% { box-shadow: 0 6px 24px oklch(0 0 0 / 0.35), 0 0 8px oklch(0.7 0.18 350 / 0.08); }
+  50% { box-shadow: 0 6px 24px oklch(0 0 0 / 0.35), 0 0 18px oklch(0.7 0.18 350 / 0.15); }
+}
+@keyframes luxury-glow-orange {
+  0%, 100% { box-shadow: 0 6px 24px oklch(0 0 0 / 0.35), 0 0 8px oklch(0.75 0.18 60 / 0.08); }
+  50% { box-shadow: 0 6px 24px oklch(0 0 0 / 0.35), 0 0 18px oklch(0.75 0.18 60 / 0.15); }
+}
+@keyframes luxury-glow-sky {
+  0%, 100% { box-shadow: 0 6px 24px oklch(0 0 0 / 0.35), 0 0 8px oklch(0.65 0.15 230 / 0.08); }
+  50% { box-shadow: 0 6px 24px oklch(0 0 0 / 0.35), 0 0 18px oklch(0.65 0.15 230 / 0.15); }
+}
+
+/* Light mode — disable heavy glow animations */
+html:not(.dark) .luxury-glow-blue,
+html:not(.dark) .luxury-glow-violet,
+html:not(.dark) .luxury-glow-emerald,
+html:not(.dark) .luxury-glow-teal,
+html:not(.dark) .luxury-glow-rose,
+html:not(.dark) .luxury-glow-pink,
+html:not(.dark) .luxury-glow-orange,
+html:not(.dark) .luxury-glow-sky {
+  animation: none;
+}
+
+/* Legacy compact-action-card — backward compat */
+.compact-action-card {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+  border: 1px solid oklch(1 0 0 / 0.06);
+  box-shadow: 0 4px 20px oklch(0 0 0 / 0.3), 0 1px 4px oklch(0 0 0 / 0.15), inset 0 1px 0 oklch(1 0 0 / 0.04);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+}
+
+.compact-action-card:active {
+  box-shadow: 0 2px 10px oklch(0 0 0 / 0.2), 0 0.5px 2px oklch(0 0 0 / 0.1);
+  border-color: oklch(1 0 0 / 0.1);
+}
+
+/* Legacy premium-action-card — backward compat */
+.premium-action-card {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+  border: 1px solid oklch(1 0 0 / 0.06);
+  box-shadow: 0 4px 20px oklch(0 0 0 / 0.3), 0 1px 4px oklch(0 0 0 / 0.15), inset 0 1px 0 oklch(1 0 0 / 0.04);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+}
+
+.premium-action-card:active {
+  box-shadow: 0 2px 10px oklch(0 0 0 / 0.2), 0 0.5px 2px oklch(0 0 0 / 0.1);
+  border-color: oklch(1 0 0 / 0.1);
+}
+
+/* ============================================================
+   CLEAN PREMIUM MODERN CARD STYLES — Apple-style UI
+   Images FULLY VISIBLE, soft bottom gradient only
+   ============================================================ */
+
+.clean-card {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  border: 1px solid oklch(0.25 0.015 145 / 0.2);
+  box-shadow:
+    0 2px 16px oklch(0 0 0 / 0.2),
+    0 0.5px 2px oklch(0 0 0 / 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.clean-card:active {
+  box-shadow:
+    0 1px 8px oklch(0 0 0 / 0.15),
+    0 0px 1px oklch(0 0 0 / 0.08);
+  border-color: oklch(0.3 0.02 145 / 0.25);
+}
+
+/* Premium image rendering — crisp, sharp, high quality */
+.clean-card-img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Hover lift effect (desktop only) */
+@media (hover: hover) {
+  .clean-card:hover {
+    box-shadow:
+      0 12px 40px oklch(0 0 0 / 0.3),
+      0 2px 8px oklch(0 0 0 / 0.15),
+      0 0 20px oklch(0.65 0.22 145 / 0.06);
+    transform: translateY(-4px);
+    border-color: oklch(0.35 0.02 145 / 0.3);
+  }
+
+  .clean-card:hover .clean-card-img {
+    transform: scale(1.04);
+  }
+}
+
+/* Horizontal scroll with iOS-style snap */
+.premium-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 4px;
+}
+
+/* Legacy card support — same clean style */
+.premium-quick-card,
+.premium-combo-card,
+.premium-trending-card {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  border: 1px solid oklch(0.25 0.015 145 / 0.2);
+  box-shadow:
+    0 2px 16px oklch(0 0 0 / 0.2),
+    0 0.5px 2px oklch(0 0 0 / 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.premium-quick-card img,
+.premium-combo-card img,
+.premium-trending-card img,
+.clean-card img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
+}
+
+/* Hover glow for legacy cards (desktop only) */
+@media (hover: hover) {
+  .premium-quick-card:hover,
+  .premium-combo-card:hover,
+  .premium-trending-card:hover {
+    box-shadow:
+      0 12px 40px oklch(0 0 0 / 0.3),
+      0 2px 8px oklch(0 0 0 / 0.15),
+      0 0 20px oklch(0.65 0.22 145 / 0.06);
+    transform: translateY(-4px);
+    transition: all 0.3s ease;
+  }
+}
+
+/* ============================================================
+   PREMIUM DARK GLOW ACCENTS — Ambient Light Effects
+   ============================================================ */
+.glow-primary {
+  box-shadow: 0 0 20px oklch(0.65 0.22 145 / 0.15), 0 0 60px oklch(0.65 0.22 145 / 0.05);
+}
+
+.glow-safe {
+  box-shadow: 0 0 20px oklch(0.65 0.22 145 / 0.15), 0 0 60px oklch(0.65 0.22 145 / 0.05);
+}
+
+.glow-warn {
+  box-shadow: 0 0 20px oklch(0.78 0.16 75 / 0.15), 0 0 60px oklch(0.78 0.16 75 / 0.05);
+}
+
+.glow-danger {
+  box-shadow: 0 0 20px oklch(0.62 0.22 25 / 0.15), 0 0 60px oklch(0.62 0.22 25 / 0.05);
+}
+
+/* ============================================================
+   PREMIUM CHIP / TAG STYLES — Dark Glass
+   ============================================================ */
+.chip-glass {
+  background: oklch(0.18 0.02 145 / 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid oklch(0.28 0.02 145 / 0.4);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.chip-glass:active {
+  transform: scale(0.95);
+}
+
+.chip-primary {
+  background: oklch(0.55 0.22 145 / 0.15);
+  border-color: oklch(0.55 0.22 145 / 0.3);
+  color: oklch(0.65 0.22 145);
+}
+
+.chip-safe {
+  background: oklch(0.55 0.22 145 / 0.15);
+  border-color: oklch(0.55 0.22 145 / 0.3);
+  color: oklch(0.65 0.22 145);
+}
+
+.chip-warn {
+  background: oklch(0.78 0.16 75 / 0.12);
+  border-color: oklch(0.78 0.16 75 / 0.25);
+  color: oklch(0.78 0.16 75);
+}
+
+.chip-danger {
+  background: oklch(0.62 0.22 25 / 0.12);
+  border-color: oklch(0.62 0.22 25 / 0.25);
+  color: oklch(0.62 0.22 25);
+}
+
+/* ============================================================
+   SHADCN OVERRIDES FOR DARK PREMIUM
+   ============================================================ */
+[data-slot="card"] {
+  background: oklch(0.14 0.02 145 / 0.6) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-color: oklch(0.24 0.02 145 / 0.5) !important;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px oklch(0 0 0 / 0.15);
+}
+
+[data-slot="input"] {
+  background: oklch(0.14 0.02 145 / 0.6) !important;
+  border-color: oklch(0.24 0.02 145) !important;
+  border-radius: 14px;
+  color: oklch(0.95 0.01 145);
+}
+
+[data-slot="input"]:focus {
+  border-color: oklch(0.65 0.22 145) !important;
+  box-shadow: 0 0 0 3px oklch(0.65 0.22 145 / 0.15) !important;
+}
+
+[data-slot="button"][data-variant="outline"] {
+  background: oklch(0.16 0.02 145 / 0.5);
+  border-color: oklch(0.28 0.02 145 / 0.5);
+  color: oklch(0.9 0.01 145);
+  border-radius: 14px;
+}
+
+[data-slot="button"][data-variant="default"] {
+  background: linear-gradient(135deg, oklch(0.55 0.22 145), oklch(0.65 0.2 160));
+  color: oklch(0.08 0.02 145);
+  font-weight: 700;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px oklch(0.55 0.22 145 / 0.25);
+}
+
+[data-slot="button"][data-variant="ghost"] {
+  color: oklch(0.7 0.02 145);
+}
+
+[data-slot="badge"] {
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+/* ============================================================
+   PREMIUM SCROLLBAR STYLING — Custom thin scrollbar
+   ============================================================ */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: oklch(0.3 0.02 145 / 0.4);
+  border-radius: 999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.4 0.03 145 / 0.6);
+}
+
+/* ============================================================
+   PREMIUM INPUT ENHANCEMENTS
+   ============================================================ */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+/* ============================================================
+   PREMIUM SECTION DIVIDER — Glass line
+   ============================================================ */
+.premium-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, oklch(0.3 0.02 145 / 0.4), transparent);
+  margin: 4px 0;
+}
+
+/* ============================================================
+   PREMIUM RIBBON / RIBBON BADGE
+   ============================================================ */
+.premium-ribbon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  overflow: hidden;
+  width: 80px;
+  height: 80px;
+  pointer-events: none;
+}
+.premium-ribbon::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  right: -24px;
+  width: 120px;
+  padding: 4px 0;
+  background: linear-gradient(135deg, oklch(0.55 0.22 145), oklch(0.65 0.2 160));
+  color: white;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transform: rotate(45deg);
+  box-shadow: 0 2px 8px oklch(0 0 0 / 0.3);
+}
+
+/* ============================================================
+   PREMIUM BACKDROP OVERLAY
+   ============================================================ */
+.premium-backdrop {
+  background: oklch(0 0 0 / 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ============================================================
+   PREMIUM LOADING SHIMMER
+   ============================================================ */
+.shimmer-card {
+  background: linear-gradient(
+    110deg,
+    oklch(0.16 0.02 145 / 0.4) 8%,
+    oklch(0.22 0.02 145 / 0.5) 18%,
+    oklch(0.16 0.02 145 / 0.4) 33%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s linear infinite;
+}
+
+/* ============================================================
+   PREMIUM STEP INDICATOR
+   ============================================================ */
+.step-connector {
+  position: absolute;
+  left: 19px;
+  top: 40px;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, oklch(0.55 0.22 145 / 0.3), oklch(0.55 0.22 145 / 0.05));
+}
+
+/* ============================================================
+   PREMIUM STATUS DOT
+   ============================================================ */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: relative;
+}
+.status-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  opacity: 0.3;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ============================================================
+   GLASS LIST ITEM — For settings / menu rows
+   ============================================================ */
+.glass-list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid oklch(0.24 0.02 145 / 0.2);
+  transition: background 0.15s ease;
+}
+.glass-list-item:last-child {
+  border-bottom: none;
+}
+.glass-list-item:active {
+  background: oklch(0.18 0.02 145 / 0.5);
+}
+
+/* ============================================================
+   PREMIUM CARD ENTRANCE — Staggered animation
+   ============================================================ */
+@keyframes slide-up-fade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-entrance {
+  animation: slide-up-fade 0.4s ease-out both;
+}
+.card-entrance:nth-child(1) { animation-delay: 0ms; }
+.card-entrance:nth-child(2) { animation-delay: 60ms; }
+.card-entrance:nth-child(3) { animation-delay: 120ms; }
+.card-entrance:nth-child(4) { animation-delay: 180ms; }
+.card-entrance:nth-child(5) { animation-delay: 240ms; }
+.card-entrance:nth-child(6) { animation-delay: 300ms; }
+.card-entrance:nth-child(7) { animation-delay: 360ms; }
+.card-entrance:nth-child(8) { animation-delay: 420ms; }
+
+/* ============================================================
+   LIGHT MODE OVERRIDES — Clean, bright, premium
+   Activates when .dark class is NOT on <html>
+   Apple Health app style: white bg, subtle shadows, clean cards
+   ============================================================ */
+
+html:not(.dark) {
+  color-scheme: light;
+}
+
+/* Status bar — light */
+html:not(.dark) .status-bar {
+  background: oklch(0.98 0.005 145);
+  border-bottom-color: oklch(0.88 0.01 145 / 0.6);
+}
+
+/* Tab bar — light frosted glass */
+html:not(.dark) .tab-bar {
+  background: oklch(0.97 0.005 145 / 0.92);
+  border-top-color: oklch(0.88 0.01 145 / 0.5);
+}
+
+/* Smooth theme transition */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.theme-transitioning,
+html.theme-transitioning * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* Glass card — light translucent */
+html:not(.dark) .glass-card {
+  background: oklch(0.98 0.005 145 / 0.75);
+  border-color: oklch(0.88 0.01 145 / 0.6);
+  box-shadow:
+    0 2px 16px oklch(0 0 0 / 0.06),
+    0 1px 4px oklch(0 0 0 / 0.04),
+    inset 0 1px 0 oklch(1 0 0 / 0.8);
+}
+
+/* Glass card elevated — light */
+html:not(.dark) .glass-card-elevated {
+  background: oklch(0.98 0.005 145 / 0.85);
+  border-color: oklch(0.88 0.01 145 / 0.7);
+  box-shadow:
+    0 4px 24px oklch(0 0 0 / 0.08),
+    0 1px 6px oklch(0 0 0 / 0.05),
+    inset 0 1px 0 oklch(1 0 0 / 0.9);
+}
+
+/* Glass card subtle — light */
+html:not(.dark) .glass-card-subtle {
+  background: oklch(0.97 0.005 145 / 0.6);
+  border-color: oklch(0.88 0.01 145 / 0.4);
+  box-shadow: 0 1px 8px oklch(0 0 0 / 0.04);
+}
+
+/* Mobile card — light */
+html:not(.dark) .mobile-card {
+  background: oklch(0.98 0.005 145 / 0.8);
+  border-color: oklch(0.88 0.01 145 / 0.5);
+  box-shadow: 0 2px 12px oklch(0 0 0 / 0.06);
+}
+
+/* Mobile input — light bg with dark text */
+html:not(.dark) .mobile-input {
+  border-color: oklch(0.86 0.01 145);
+  background: oklch(0.97 0.005 145 / 0.8);
+  color: oklch(0.12 0.02 145);
+}
+
+html:not(.dark) .mobile-input:focus {
+  border-color: oklch(0.55 0.22 145);
+  box-shadow: 0 0 0 3px oklch(0.55 0.22 145 / 0.15), 0 0 16px oklch(0.55 0.22 145 / 0.06);
+  background: oklch(0.98 0.005 145);
+}
+
+/* Glass morphism — light */
+html:not(.dark) .glass {
+  background: oklch(0.98 0.005 145 / 0.75);
+  border-color: oklch(0 0 0 / 0.06);
+}
+
+/* Button glass — light */
+html:not(.dark) .btn-glass {
+  background: oklch(0.97 0.005 145 / 0.7);
+  border-color: oklch(0.86 0.01 145 / 0.6);
+  color: oklch(0.12 0.02 145);
+}
+
+html:not(.dark) .btn-glass:active {
+  background: oklch(0.94 0.01 145 / 0.9);
+}
+
+/* Chip glass — light */
+html:not(.dark) .chip-glass {
+  background: oklch(0.96 0.005 145 / 0.8);
+  border-color: oklch(0.86 0.01 145 / 0.5);
+  color: oklch(0.3 0.02 145);
+}
+
+/* Chip variants — light */
+html:not(.dark) .chip-primary {
+  background: oklch(0.55 0.22 145 / 0.1);
+  border-color: oklch(0.55 0.22 145 / 0.25);
+  color: oklch(0.45 0.2 145);
+}
+
+html:not(.dark) .chip-safe {
+  background: oklch(0.55 0.22 145 / 0.1);
+  border-color: oklch(0.55 0.22 145 / 0.25);
+  color: oklch(0.45 0.2 145);
+}
+
+html:not(.dark) .chip-warn {
+  background: oklch(0.78 0.16 75 / 0.1);
+  border-color: oklch(0.78 0.16 75 / 0.2);
+  color: oklch(0.55 0.16 75);
+}
+
+html:not(.dark) .chip-danger {
+  background: oklch(0.62 0.22 25 / 0.1);
+  border-color: oklch(0.62 0.22 25 / 0.2);
+  color: oklch(0.5 0.2 25);
+}
+
+/* Mobile sheet — light */
+html:not(.dark) .mobile-sheet {
+  background: oklch(0.98 0.005 145);
+  border-top-color: oklch(0.88 0.01 145 / 0.6);
+  box-shadow: 0 -8px 40px oklch(0 0 0 / 0.1);
+}
+
+/* Home indicator — light */
+html:not(.dark) .home-indicator {
+  background: oklch(0.98 0.005 145);
+}
+
+/* Glass list item — light borders */
+html:not(.dark) .glass-list-item {
+  border-bottom-color: oklch(0.88 0.01 145 / 0.5);
+}
+
+html:not(.dark) .glass-list-item:active {
+  background: oklch(0.94 0.01 145 / 0.6);
+}
+
+/* Premium divider — light */
+html:not(.dark) .premium-divider {
+  background: linear-gradient(90deg, transparent, oklch(0.78 0.01 145 / 0.4), transparent);
+}
+
+/* Clean card — light borders and shadows */
+html:not(.dark) .clean-card {
+  border-color: oklch(0.88 0.01 145 / 0.4);
+  box-shadow:
+    0 2px 12px oklch(0 0 0 / 0.06),
+    0 0.5px 2px oklch(0 0 0 / 0.03);
+}
+
+html:not(.dark) .clean-card:active {
+  box-shadow:
+    0 1px 6px oklch(0 0 0 / 0.04),
+    0 0px 1px oklch(0 0 0 / 0.02);
+  border-color: oklch(0.82 0.01 145 / 0.5);
+}
+
+@media (hover: hover) {
+  html:not(.dark) .clean-card:hover {
+    box-shadow:
+      0 10px 36px oklch(0 0 0 / 0.1),
+      0 2px 6px oklch(0 0 0 / 0.06),
+      0 0 16px oklch(0.55 0.22 145 / 0.04);
+    border-color: oklch(0.78 0.01 145 / 0.5);
+    transform: translateY(-4px);
+  }
+
+  html:not(.dark) .clean-card:hover .clean-card-img {
+    transform: scale(1.04);
+  }
+}
+
+/* Legacy card support — light */
+html:not(.dark) .premium-quick-card,
+html:not(.dark) .premium-combo-card,
+html:not(.dark) .premium-trending-card {
+  border-color: oklch(0.88 0.01 145 / 0.4);
+  box-shadow:
+    0 2px 12px oklch(0 0 0 / 0.06),
+    0 0.5px 2px oklch(0 0 0 / 0.03);
+}
+
+@media (hover: hover) {
+  html:not(.dark) .premium-quick-card:hover,
+  html:not(.dark) .premium-combo-card:hover,
+  html:not(.dark) .premium-trending-card:hover {
+    box-shadow:
+      0 10px 36px oklch(0 0 0 / 0.1),
+      0 2px 6px oklch(0 0 0 / 0.06),
+      0 0 16px oklch(0.55 0.22 145 / 0.04);
+    border-color: oklch(0.78 0.01 145 / 0.5);
+    transform: translateY(-4px);
+  }
+}
+
+/* Shimmer card — light grays */
+html:not(.dark) .shimmer-card {
+  background: linear-gradient(
+    110deg,
+    oklch(0.94 0.005 145 / 0.6) 8%,
+    oklch(0.97 0.005 145 / 0.8) 18%,
+    oklch(0.94 0.005 145 / 0.6) 33%
+  );
+  background-size: 200% 100%;
+}
+
+/* Section header — light */
+html:not(.dark) .section-header {
+  color: oklch(0.45 0.02 145);
+}
+
+/* Gradient premium hero — light variant */
+html:not(.dark) .gradient-premium-hero {
+  background: linear-gradient(135deg, oklch(0.96 0.005 145), oklch(0.98 0.01 145), oklch(0.96 0.005 145));
+}
+
+/* Gradient card shine — light variant */
+html:not(.dark) .gradient-card-shine {
+  background: linear-gradient(135deg, oklch(0 0 0 / 0.02) 0%, oklch(0 0 0 / 0) 50%, oklch(0 0 0 / 0.01) 100%);
+}
+
+/* Shadcn overrides — light mode */
+html:not(.dark) [data-slot="card"] {
+  background: oklch(0.98 0.005 145 / 0.85) !important;
+  border-color: oklch(0.88 0.01 145 / 0.6) !important;
+  box-shadow: 0 2px 12px oklch(0 0 0 / 0.05);
+}
+
+html:not(.dark) [data-slot="input"] {
+  background: oklch(0.98 0.005 145) !important;
+  border-color: oklch(0.86 0.01 145) !important;
+  color: oklch(0.12 0.02 145);
+}
+
+html:not(.dark) [data-slot="input"]:focus {
+  border-color: oklch(0.55 0.22 145) !important;
+  box-shadow: 0 0 0 3px oklch(0.55 0.22 145 / 0.12) !important;
+}
+
+html:not(.dark) [data-slot="button"][data-variant="outline"] {
+  background: oklch(0.97 0.005 145 / 0.8);
+  border-color: oklch(0.86 0.01 145 / 0.6);
+  color: oklch(0.2 0.02 145);
+}
+
+html:not(.dark) [data-slot="button"][data-variant="default"] {
+  background: linear-gradient(135deg, oklch(0.55 0.22 145), oklch(0.65 0.2 160));
+  color: oklch(0.98 0.005 145);
+  box-shadow: 0 4px 16px oklch(0.55 0.22 145 / 0.2);
+}
+
+html:not(.dark) [data-slot="button"][data-variant="ghost"] {
+  color: oklch(0.4 0.02 145);
+}
+
+/* Premium scrollbar — light */
+html:not(.dark) .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: oklch(0.78 0.01 145 / 0.4);
+}
+
+html:not(.dark) .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.7 0.02 145 / 0.5);
+}
+
+/* Calendar picker — light (no invert needed) */
+html:not(.dark) input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: none;
+  opacity: 0.6;
+}
+
+/* Glow accents — lighter shadows in light mode */
+html:not(.dark) .glow-primary {
+  box-shadow: 0 0 16px oklch(0.55 0.22 145 / 0.12), 0 0 40px oklch(0.55 0.22 145 / 0.04);
+}
+
+html:not(.dark) .glow-safe {
+  box-shadow: 0 0 16px oklch(0.55 0.22 145 / 0.12), 0 0 40px oklch(0.55 0.22 145 / 0.04);
+}
+
+html:not(.dark) .glow-warn {
+  box-shadow: 0 0 16px oklch(0.78 0.16 75 / 0.12), 0 0 40px oklch(0.78 0.16 75 / 0.04);
+}
+
+html:not(.dark) .glow-danger {
+  box-shadow: 0 0 16px oklch(0.62 0.22 25 / 0.12), 0 0 40px oklch(0.62 0.22 25 / 0.04);
+}
+
+/* Premium backdrop — light mode */
+html:not(.dark) .premium-backdrop {
+  background: oklch(0 0 0 / 0.35);
+}
+
+/* Step connector — light */
+html:not(.dark) .step-connector {
+  background: linear-gradient(to bottom, oklch(0.55 0.22 145 / 0.2), oklch(0.55 0.22 145 / 0.03));
+}
+
+/* Premium gradient text — slightly deeper for light bg contrast */
+html:not(.dark) .premium-gradient-text {
+  background: linear-gradient(135deg, oklch(0.45 0.22 145), oklch(0.6 0.2 160));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animate shimmer — light */
+html:not(.dark) .animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, oklch(0.55 0.22 145 / 0.06) 50%, transparent 100%);
+  background-size: 200% 100%;
+}
+
+/* ============================================================
+   PREMIUM FLOATING PARTICLES — Ambient Atmosphere Effects
+   For ultra-premium AI Healthcare card backgrounds
+   ============================================================ */
+
+.premium-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: oklch(1 0 0 / 0.15);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.premium-particle-1 {
+  width: 4px;
+  height: 4px;
+  top: 15%;
+  left: 20%;
+  animation: particle-float-1 6s ease-in-out infinite;
+}
+
+.premium-particle-2 {
+  width: 3px;
+  height: 3px;
+  top: 45%;
+  left: 70%;
+  animation: particle-float-2 8s ease-in-out infinite 1s;
+}
+
+.premium-particle-3 {
+  width: 5px;
+  height: 5px;
+  top: 70%;
+  left: 35%;
+  animation: particle-float-3 7s ease-in-out infinite 2s;
+}
+
+@keyframes particle-float-1 {
+  0%, 100% { 
+    transform: translate(0, 0) scale(1); 
+    opacity: 0.15; 
+  }
+  25% { 
+    transform: translate(8px, -12px) scale(1.3); 
+    opacity: 0.35; 
+  }
+  50% { 
+    transform: translate(-4px, -20px) scale(0.9); 
+    opacity: 0.2; 
+  }
+  75% { 
+    transform: translate(12px, -8px) scale(1.1); 
+    opacity: 0.3; 
+  }
+}
+
+@keyframes particle-float-2 {
+  0%, 100% { 
+    transform: translate(0, 0) scale(1); 
+    opacity: 0.12; 
+  }
+  33% { 
+    transform: translate(-10px, 8px) scale(1.4); 
+    opacity: 0.28; 
+  }
+  66% { 
+    transform: translate(6px, -14px) scale(0.8); 
+    opacity: 0.18; 
+  }
+}
+
+@keyframes particle-float-3 {
+  0%, 100% { 
+    transform: translate(0, 0) scale(1); 
+    opacity: 0.1; 
+  }
+  40% { 
+    transform: translate(14px, 6px) scale(1.2); 
+    opacity: 0.32; 
+  }
+  70% { 
+    transform: translate(-8px, -16px) scale(0.85); 
+    opacity: 0.15; 
+  }
+}
+
+/* Light mode — particles more subtle */
+html:not(.dark) .premium-particle {
+  background: oklch(0 0 0 / 0.06);
+}

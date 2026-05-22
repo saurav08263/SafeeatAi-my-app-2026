@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model UserProfile {
+  id                    String   @id @default(cuid())
+  name                  String   @default("User")
+  email                 String   @unique @default("user@safteyeat.ai")
+  phone                 String?
+  avatarUrl             String?
+  allergies             String   @default("[]")
+  dietaryRestrictions   String   @default("[]")
+  healthGoals           String   @default("[]")
+  isPremium             Boolean  @default(false)
+  trialStart            DateTime?
+  trialEnd              DateTime?
+  isTrialUsed           Boolean  @default(false)
+  premiumExpiry         DateTime?
+  scanCount             Int      @default(0)
+  authProvider          String   @default("email") // email, google, apple
+  country               String   @default("IN")
+  pushToken             String?
+  notificationEnabled   Boolean  @default(true)
+  referralCode          String?
+  referredBy            String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  scans                 Scan[]
+  chatMessages          ChatMessage[]
+  subscription          Subscription?
+}
+
+model Scan {
+  id              String   @id @default(cuid())
+  userId          String
+  productName     String   @default("Unknown Product")
+  ingredients     String   @default("[]")
+  safetyScore     Int      @default(0)
+  riskLevel       String   @default("low")
+  warnings        String   @default("[]")
+  allergenAlerts  String   @default("[]")
+  nutritionSummary String  @default("{}")
+  aiAnalysis      String   @default("")
+  imageData       String?
+  scanType        String   @default("image") // image, text, combination, expiry, medicine, pregnancy, kids, gym
+  comboItems      String   @default("[]") // JSON array of combination items
+  isSaved         Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  user            UserProfile @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt])
+  @@index([scanType])
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  userId    String
+  role      String   @default("user") // user, assistant
+  content   String
+  createdAt DateTime @default(now())
+  user      UserProfile @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model Subscription {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  plan            String   @default("free") // free, pro, premium
+  provider        String   @default("none") // google_play, none
+  providerId      String?
+  status          String   @default("inactive") // active, inactive, cancelled, trial
+  startDate       DateTime?
+  endDate         DateTime?
+  amount          Float    @default(0)
+  currency        String   @default("INR")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  user            UserProfile @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AdminStats {
+  id              String   @id @default(cuid())
+  totalUsers      Int      @default(0)
+  premiumUsers    Int      @default(0)
+  totalScans      Int      @default(0)
+  totalRevenue    Float    @default(0)
+  monthlyRevenue  Float    @default(0)
+  activeTrials    Int      @default(0)
+  updatedAt       DateTime @updatedAt
+}
+
+model AppConfig {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  category  String   @default("general") // "firebase", "googleplay", "general"
+  isSecret  Boolean  @default(false)
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
