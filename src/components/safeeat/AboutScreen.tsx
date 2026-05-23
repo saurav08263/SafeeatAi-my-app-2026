@@ -199,7 +199,7 @@ export function AboutScreen() {
       <motion.div variants={item}>
         <div className="glass-card divide-y divide-border/20">
           <button
-            onClick={() => setCurrentScreen('help')}
+            onClick={() => setCurrentScreen('terms')}
             className="w-full flex items-center gap-3 p-4 hover:bg-muted/20 transition-colors tap-feedback"
           >
             <div className="p-2 rounded-xl bg-muted/40 shrink-0">

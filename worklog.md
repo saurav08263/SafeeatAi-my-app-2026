@@ -201,3 +201,25 @@ Stage Summary:
 - 16 AI-generated food images in public/images/
 - PWA manifest, service worker, and install prompt configured
 - Dark/light theme with next-themes operational
+
+---
+Task ID: 5
+Agent: Main Agent
+Task: Create Privacy Policy & Terms of Service pages for Play Store compliance
+
+Work Log:
+- Reviewed existing PrivacyPolicyScreen (12 sections) and HelpScreen (terms embedded as tab)
+- Created dedicated TermsScreen.tsx with 19 comprehensive legal sections matching app design
+- Updated PrivacyPolicyScreen with 6 new sections: Health Data Protections, GDPR, DPDP Act 2023, CCPA, Camera Permissions, Data Breach Notification (now 18 sections)
+- Created public HTML route /privacy (route.ts) — clean, styled HTML page for Play Store URL
+- Created public HTML route /terms (route.ts) — clean, styled HTML page for Play Store URL
+- Added TermsScreen to app router (page.tsx) as 'terms' screen
+- Fixed AboutScreen: Terms link now goes to 'terms' screen instead of 'help'
+- Lint passes clean, dev server running, both public routes return HTTP 200
+
+Stage Summary:
+- Privacy Policy: 18 sections covering GDPR, CCPA, DPDP Act 2023, health data, breach notification
+- Terms of Service: 19 sections covering medical disclaimer, subscriptions, AI disclaimer, Indian jurisdiction
+- Public URLs: /privacy and /terms serve professional HTML pages for Play Store submission
+- In-app screens: Both accessible from About screen and Help screen
+- All pages include contact email (doctorpulseai24@gmail.com) and DoctorPulse AI branding

@@ -26,6 +26,7 @@ import { HelpScreen } from '@/components/safeeat/HelpScreen'
 import { AboutScreen } from '@/components/safeeat/AboutScreen'
 import { ReferScreen } from '@/components/safeeat/ReferScreen'
 import { PrivacyPolicyScreen } from '@/components/safeeat/PrivacyPolicyScreen'
+import { TermsScreen } from '@/components/safeeat/TermsScreen'
 import { PWAInstallPrompt } from '@/components/PWAInstallPrompt'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
@@ -101,6 +102,7 @@ function ScreenRenderer() {
     about: <AboutScreen />,
     refer: <ReferScreen />,
     privacy: <PrivacyPolicyScreen />,
+    terms: <TermsScreen />,
   }
 
   return (

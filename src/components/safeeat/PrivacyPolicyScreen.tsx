@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useAppStore } from '@/lib/store'
 import {
   ChevronLeft, Shield, Lock, Eye, Database, Users, Globe,
-  Mail, Heart, CheckCircle2, Clock, FileText, Baby
+  Mail, Heart, CheckCircle2, Clock, FileText, Baby, Scale, Smartphone
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 
@@ -84,23 +84,90 @@ Automatically Collected Information:
 - AI Analysis: Our AI models process ingredient data without storing personal identifiers`,
   },
   {
+    icon: Baby,
+    title: '9. Special Protections for Health Data',
+    content: `- Health-related data (allergies, dietary restrictions, medical conditions) is treated as sensitive personal data under applicable law
+- We apply enhanced security measures including encryption at rest and in transit for all health data
+- Health data is only used to provide personalized food safety analysis and alerts
+- You may withdraw consent for health data processing at any time, though this may limit app functionality
+- We conduct regular security assessments to ensure health data protection`,
+  },
+  {
+    icon: Scale,
+    title: '10. GDPR Compliance (EU Users)',
+    content: `If you are a resident of the European Economic Area (EEA), you have the following rights:
+- Right to Access: Request a copy of your personal data
+- Right to Rectification: Request correction of inaccurate data
+- Right to Erasure: Request deletion of your personal data ("Right to be Forgotten")
+- Right to Data Portability: Receive your data in a structured, machine-readable format
+- Right to Object: Object to processing of your personal data
+- Right to Restrict Processing: Request limitation of data processing
+- Right to Withdraw Consent: Withdraw consent at any time
+
+To exercise these rights, contact our Data Protection Officer at doctorpulseai24@gmail.com`,
+  },
+  {
+    icon: Globe,
+    title: '11. Indian Data Protection (DPDP Act 2023)',
+    content: `In compliance with the Digital Personal Data Protection Act, 2023:
+- We serve as the Data Fiduciary for your personal data
+- You have the right to access, correct, and erase your personal data
+- We obtain your consent before processing personal data, except as permitted by law
+- You may nominate another individual to exercise your data rights in case of death or incapacity
+- Grievance redressal: Contact our Grievance Officer at doctorpulseai24@gmail.com
+- We do not transfer your personal data outside India without your explicit consent or as permitted by law`,
+  },
+  {
+    icon: Shield,
+    title: '12. CCPA Compliance (California Users)',
+    content: `Under the California Consumer Privacy Act (CCPA), California residents have the right to:
+- Know what personal information is collected about them
+- Request deletion of their personal information
+- Opt out of the sale of personal information (we do NOT sell personal information)
+- Not be discriminated against for exercising their privacy rights
+- Request access to specific pieces of personal information
+
+We do not sell, rent, or trade your personal information to third parties.`,
+  },
+  {
+    icon: Smartphone,
+    title: '13. Camera & Device Permissions',
+    content: `SafeEat AI requests the following device permissions:
+- Camera: Used exclusively for scanning food labels and products. Images are processed in real-time and are NOT stored on our servers after analysis
+- Storage: Used to cache scan results and preferences locally on your device
+- Internet: Required for AI analysis and cloud processing
+- Notifications: Used for safety alerts and product recalls (can be disabled)
+
+You may revoke any permission at any time through your device Settings. Revoking permissions may limit certain app features.`,
+  },
+  {
+    icon: Lock,
+    title: '14. Data Breach Notification',
+    content: `In the event of a data breach that may affect your personal information:
+- We will notify affected users within 72 hours of becoming aware of the breach
+- Notifications will be sent via email and/or in-app notification
+- We will provide details of the breach, affected data types, and remedial actions
+- We will report the breach to relevant data protection authorities as required by law
+- We will take immediate steps to contain and remediate the breach`,
+  },
+  {
     icon: Database,
-    title: '9. Data Retention',
+    title: '15. Data Retention',
     content: `We retain your data for as long as your account is active or as needed to provide services. Upon account deletion, all personal data is permanently removed within 30 days.`,
   },
   {
     icon: Globe,
-    title: '10. International Data Transfers',
+    title: '16. International Data Transfers',
     content: `Your data may be processed in countries other than your own. We ensure appropriate safeguards are in place for international transfers.`,
   },
   {
     icon: Shield,
-    title: '11. Changes to This Policy',
+    title: '17. Changes to This Policy',
     content: `We may update this Privacy Policy periodically. We will notify you of significant changes through the App or via email.`,
   },
   {
     icon: Mail,
-    title: '12. Contact Us',
+    title: '18. Contact Us',
     content: `If you have questions about this Privacy Policy or your data, please contact:
 Email: doctorpulseai24@gmail.com
 
@@ -118,10 +185,16 @@ const iconColors: string[] = [
   'text-pink-400',     // 6. Children's Privacy
   'text-muted-foreground', // 7. Cookies
   'text-primary',      // 8. Third-Party
-  'text-warn',         // 9. Data Retention
-  'text-primary',      // 10. Int'l Transfers
-  'text-safe',         // 11. Changes
-  'text-primary',      // 12. Contact
+  'text-pink-400',     // 9. Health Data
+  'text-primary',      // 10. GDPR
+  'text-primary',      // 11. DPDP Act
+  'text-safe',         // 12. CCPA
+  'text-primary',      // 13. Camera & Device
+  'text-warn',         // 14. Data Breach
+  'text-warn',         // 15. Data Retention
+  'text-primary',      // 16. Int'l Transfers
+  'text-safe',         // 17. Changes
+  'text-primary',      // 18. Contact
 ]
 
 const iconBgs: string[] = [
@@ -133,10 +206,16 @@ const iconBgs: string[] = [
   'bg-pink-400/10',
   'bg-muted/50',
   'bg-primary/10',
-  'bg-warn/10',
-  'bg-primary/10',
-  'bg-safe/10',
-  'bg-primary/10',
+  'bg-pink-400/10',    // 9. Health Data
+  'bg-primary/10',    // 10. GDPR
+  'bg-primary/10',    // 11. DPDP Act
+  'bg-safe/10',       // 12. CCPA
+  'bg-primary/10',    // 13. Camera & Device
+  'bg-warn/10',       // 14. Data Breach
+  'bg-warn/10',       // 15. Data Retention
+  'bg-primary/10',    // 16. Int'l Transfers
+  'bg-safe/10',       // 17. Changes
+  'bg-primary/10',    // 18. Contact
 ]
 
 export function PrivacyPolicyScreen() {
@@ -203,6 +282,7 @@ export function PrivacyPolicyScreen() {
               { label: 'No Data Selling', icon: Shield, color: 'text-primary' },
               { label: 'You Own Your Data', icon: Users, color: 'text-warn' },
               { label: 'GDPR Compliant', icon: Globe, color: 'text-primary' },
+              { label: 'DPDP Act 2023', icon: Scale, color: 'text-warn' },
             ].map((point) => {
               const Icon = point.icon
               return (
