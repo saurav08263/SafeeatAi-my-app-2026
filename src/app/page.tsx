@@ -123,7 +123,7 @@ function ScreenRenderer() {
 }
 
 export default function SafeEatApp() {
-  const { setProfile, setScanHistory, currentScreen, setCurrentScreen, hasSeenOnboarding, setHasSeenOnboarding } = useAppStore()
+  const { setProfile, setScanHistory, currentScreen, setCurrentScreen, hasSeenOnboarding, setHasSeenOnboarding, navigateBack } = useAppStore()
   const [showSplash, setShowSplash] = useState(true)
 
   // Load initial data
@@ -159,6 +159,21 @@ export default function SafeEatApp() {
       }
     }
   }, [showSplash, hasSeenOnboarding, setCurrentScreen, setHasSeenOnboarding])
+
+  // Handle Capacitor Android back button
+  useEffect(() => {
+    const handleBackButton = () => {
+      const { currentScreen, navigateBack } = useAppStore.getState()
+      // On home screen, back button should minimize the app (default behavior)
+      // On any other screen, go back to previous screen
+      if (currentScreen !== 'home' && currentScreen !== 'welcome') {
+        navigateBack()
+      }
+    }
+
+    window.addEventListener('capacitor-backbutton', handleBackButton)
+    return () => window.removeEventListener('capacitor-backbutton', handleBackButton)
+  }, [])
 
   const showNav = !NO_NAV_SCREENS.has(currentScreen) && !showSplash
 

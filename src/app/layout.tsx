@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "next-themes";
 import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
+import { CapacitorInit } from "@/components/CapacitorInit";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -147,6 +148,7 @@ export default function RootLayout({
             },
           }}
         />
+        <CapacitorInit />
         <ServiceWorkerRegistration />
       </body>
     </html>
