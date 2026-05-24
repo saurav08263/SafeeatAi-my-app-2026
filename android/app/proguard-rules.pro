@@ -1,21 +1,32 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# SafeEat AI - ProGuard Rules
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Preserve line numbers for debugging stack traces
+-keepattributes SourceFile,LineNumberTable
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Hide original source file name
+-renamesourcefileattribute SourceFile
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# WebView with JS interface (Capacitor bridge)
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+
+# Capacitor core
+-keep class com.getcapacitor.** { *; }
+-keep class capacitor.** { *; }
+-keep class com.safeeat.ai.** { *; }
+
+# Keep JavaScript interface classes
+-keepclassmembers class * extends com.getcapacitor.Plugin {
+    @com.getcapacitor.annotation.CapacitorPlugin <methods>;
+}
+
+# Prevent stripping Capacitor plugin annotations
+-keepattributes *Annotation*
+
+# OkHttp (used by Capacitor)
+-dontwarn okhttp3.**
+-dontwarn okio.**
+
+# AndroidX
+-dontwarn androidx.**

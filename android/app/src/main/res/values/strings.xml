@@ -5,4 +5,5 @@
     <string name="package_name">com.safeeat.ai</string>
     <string name="custom_url_scheme">com.safeeat.ai</string>
     <string name="server_client_id">YOUR_GOOGLE_CLIENT_ID</string>
+    <string name="share_text">Check if your food is safe with SafeEat AI! Download now: https://safeeat.ai</string>
 </resources>

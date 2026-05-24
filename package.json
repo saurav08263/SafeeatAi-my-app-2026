@@ -11,12 +11,15 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:reset": "prisma migrate reset",
-    "cap:sync": "npx cap sync",
+    "cap:init": "npx cap init SafeEat\\ AI com.safeeat.ai --web-dir out",
+    "cap:sync": "npx cap sync android",
     "cap:android": "npx cap open android",
     "cap:copy": "npx cap copy android",
-    "android:build": "cd android && ./gradlew assembleRelease",
-    "android:debug": "cd android && ./gradlew assembleDebug",
-    "android:bundle": "cd android && ./gradlew bundleRelease"
+    "android:debug": "cd android && JAVA_HOME=/home/z/.jdk/jdk-21.0.11 ANDROID_HOME=/home/z/android-sdk ./gradlew assembleDebug",
+    "android:build": "cd android && JAVA_HOME=/home/z/.jdk/jdk-21.0.11 ANDROID_HOME=/home/z/android-sdk ./gradlew assembleRelease",
+    "android:bundle": "cd android && JAVA_HOME=/home/z/.jdk/jdk-21.0.11 ANDROID_HOME=/home/z/android-sdk ./gradlew bundleRelease",
+    "android:clean": "cd android && JAVA_HOME=/home/z/.jdk/jdk-21.0.11 ANDROID_HOME=/home/z/android-sdk ./gradlew clean",
+    "android:install": "cd android && JAVA_HOME=/home/z/.jdk/jdk-21.0.11 ANDROID_HOME=/home/z/android-sdk ./gradlew installDebug"
   },
   "dependencies": {
     "@capacitor/android": "^8.3.4",

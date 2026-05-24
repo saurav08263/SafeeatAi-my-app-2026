@@ -22,6 +22,8 @@ const config: CapacitorConfig = {
   android: {
     allowMixedContent: true,
     backgroundColor: '#0a1f0e',
+    // Use local web assets as fallback when server is unreachable
+    // This provides offline capability with the out/ directory content
   },
 
   // Plugins configuration

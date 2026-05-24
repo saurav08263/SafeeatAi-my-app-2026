@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#059669</color>
+    <color name="colorPrimaryDark">#047857</color>
+    <color name="colorAccent">#10b981</color>
     <color name="splash_bg">#0a1f0e</color>
     <color name="safeeat_primary">#059669</color>
     <color name="safeeat_dark">#0a1f0e</color>
+    <color name="safeeat_light">#f0fdf4</color>
+    <color name="safeeat_accent">#10b981</color>
 </resources>
