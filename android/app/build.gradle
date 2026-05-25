@@ -36,16 +36,26 @@ android {
         targetCompatibility JavaVersion.VERSION_21
     }
 
-    // Signing config — uncomment and fill for release builds
-    // signingConfigs {
-    //     release {
-    //         storeFile file('../../safeeat-release.jks')
-    //         storePassword 'YOUR_KEYSTORE_PASSWORD'
-    //         keyAlias 'safeeat'
-    //         keyPassword 'YOUR_KEY_PASSWORD'
-    //     }
-    // }
-    // buildTypes.release.signingConfig signingConfigs.release
+    // Signing configs for debug and release builds
+    signingConfigs {
+        debug {
+            storeFile file('safeeat-debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+        release {
+            storeFile file('safeeat-release.jks')
+            storePassword 'safeeat2024'
+            keyAlias 'safeeat'
+            keyPassword 'safeeat2024'
+            // Enable V1 and V2 signing for maximum compatibility
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+    buildTypes.debug.signingConfig signingConfigs.debug
+    buildTypes.release.signingConfig signingConfigs.release
 
     // Lint options
     lintOptions {
