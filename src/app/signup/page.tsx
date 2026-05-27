@@ -1,29 +1,32 @@
 "use client";
 
 import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { initFirebase } from "@/lib/firebase";
 
 export default function SignupPage() {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const signup = async () => {
-    const res = await fetch("/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
+    try {
+      const { auth } = await initFirebase();
+
+      if (!auth) {
+        alert("Firebase not initialized");
+        return;
+      }
+
+      await createUserWithEmailAndPassword(
+        auth,
         email,
-      }),
-    });
+        password
+      );
 
-    const data = await res.json();
-
-    if (data.success) {
       alert("Signup Success");
-    } else {
-      alert("Signup Failed");
+
+    } catch (error: any) {
+      alert(error.message);
     }
   };
 
@@ -32,17 +35,18 @@ export default function SignupPage() {
       <h1>Signup</h1>
 
       <input
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
 
       <br /><br />
 
       <input
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
 
       <br /><br />
