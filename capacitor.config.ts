@@ -3,13 +3,13 @@ import type { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'com.safeeat.ai',
   appName: 'SafeEat AI',
-  webDir: 'out',
+  webDir: "out",
 
   // Server URL — points to your deployed Next.js app
   // All API routes, AI analysis, and database work through this server
   // When deploying, change this to your production URL (e.g., https://safeeat.ai)
   server: {
-    url: 'http://10.0.2.2:3000', // Android emulator → host localhost
+     url: "http://192.168.1.10:3000", // Android emulator → host localhost
     // For physical device testing, use your computer's LAN IP:
     // url: 'http://192.168.x.x:3000',
     // For production, use your deployed URL:

@@ -140,4 +140,4 @@ export function isZAIReady(): boolean {
 export { isPendingError }
 
 // Auto pre-warm when this module is imported
-prewarmZAI()
+// prewarmZAI()
