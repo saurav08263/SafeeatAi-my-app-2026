@@ -8,7 +8,9 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const signup = async () => {
+  const signup = async (e: any) => {
+    e.preventDefault();
+
     try {
       const { auth } = await initFirebase();
 
@@ -17,15 +19,22 @@ export default function SignupPage() {
         return;
       }
 
-      await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const userCredential =
+        await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+      console.log(userCredential.user);
 
       alert("Signup Success");
 
+      window.location.href = "/";
+
     } catch (error: any) {
+      console.log(error);
+
       alert(error.message);
     }
   };
@@ -34,26 +43,31 @@ export default function SignupPage() {
     <div style={{ padding: 30 }}>
       <h1>Signup</h1>
 
-      <input
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+      <form onSubmit={signup}>
 
-      <br /><br />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        <br /><br />
 
-      <br /><br />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-      <button onClick={signup}>
-        Signup
-      </button>
+        <br /><br />
+
+        <button type="submit">
+          Signup
+        </button>
+
+      </form>
     </div>
   );
 }
