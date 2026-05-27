@@ -3,7 +3,6 @@ import type { NextConfig } from "next";
 // For production: use "standalone" output (server-side rendering with API routes)
 // Capacitor uses server.url to connect to the deployed server
 const nextConfig: NextConfig = {
-output: "export",
 
   typescript: {
     ignoreBuildErrors: true,
