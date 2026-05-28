@@ -69,7 +69,7 @@ export function SignupScreen() {
 
       toast.success('Account created!')
 
-      setCurrentScreen('trial')
+     setCurrentScreen('home')
 
     } catch (error: any) {
 
