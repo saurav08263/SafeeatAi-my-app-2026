@@ -11,6 +11,9 @@ import { Separator } from '@/components/ui/separator'
 import { toast } from 'sonner'
 import { useState } from 'react'
 
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { initFirebase } from "@/lib/firebase"
+
 const container = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { staggerChildren: 0.06 } },
@@ -28,59 +31,65 @@ export function LoginScreen() {
   const [isLoading, setIsLoading] = useState(false)
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email.trim() || !password.trim()) {
-      toast.error('Please fill in all fields')
+
+  e.preventDefault()
+
+  if (!email.trim() || !password.trim()) {
+    toast.error("Please fill all fields")
+    return
+  }
+
+  setIsLoading(true)
+
+  try {
+
+    const { auth } = await initFirebase()
+
+    if (!auth) {
+      toast.error("Firebase not initialized")
       return
     }
-    setIsLoading(true)
-    try {
-      // Try to fetch profile from API
-      const res = await fetch('/api/profile')
-      const data = await res.json()
-      if (data.success && data.profile) {
-        login(data.profile)
-      } else {
-        // Mock login
-        login({
-          id: 'user-1',
-          name: email.split('@')[0] || 'User',
-          email,
-          allergies: [],
-          dietaryRestrictions: [],
-          healthGoals: [],
-          isPremium: false,
-          isTrialUsed: false,
-          scanCount: 0,
-          authProvider: 'email',
-          country: 'IN',
-          notificationEnabled: true,
-        })
-      }
-      toast.success('Welcome back!')
-      setCurrentScreen('home')
-    } catch {
-      // Mock login on error
-      login({
-        id: 'user-1',
-        name: email.split('@')[0] || 'User',
+
+    const userCredential =
+      await signInWithEmailAndPassword(
+        auth,
         email,
-        allergies: [],
-        dietaryRestrictions: [],
-        healthGoals: [],
-        isPremium: false,
-        isTrialUsed: false,
-        scanCount: 0,
-        authProvider: 'email',
-        country: 'IN',
-        notificationEnabled: true,
-      })
-      toast.success('Welcome back!')
-      setCurrentScreen('home')
-    } finally {
-      setIsLoading(false)
-    }
+        password
+      )
+
+    const user = userCredential.user
+
+    login({
+      id: user.uid,
+      name: user.displayName || "User",
+      email: user.email || "",
+      allergies: [],
+      dietaryRestrictions: [],
+      healthGoals: [],
+      isPremium: false,
+      isTrialUsed: false,
+      scanCount: 0,
+      authProvider: 'email',
+      country: 'IN',
+      notificationEnabled: true,
+    })
+
+    toast.success("Login Success")
+
+    setCurrentScreen("home")
+
+  } catch (error: any) {
+
+    console.log(error)
+
+    toast.error(error.message)
+
+  } finally {
+
+    setIsLoading(false)
+
   }
+}
 
   return (
     <motion.div
@@ -152,21 +161,7 @@ export function LoginScreen() {
           variant="outline"
           className="flex-1 h-11 rounded-xl"
           onClick={() => {
-            login({
-              id: 'user-google',
-              name: 'Google User',
-              email: 'user@gmail.com',
-              allergies: [],
-              dietaryRestrictions: [],
-              healthGoals: [],
-              isPremium: false,
-              isTrialUsed: false,
-              scanCount: 0,
-              authProvider: 'google',
-              country: 'IN',
-              notificationEnabled: true,
-            })
-            setCurrentScreen('home')
+          toast.info("Google Login Coming Soon")
           }}
         >
           <Chrome className="h-4 w-4 mr-2" />
@@ -176,22 +171,8 @@ export function LoginScreen() {
           variant="outline"
           className="flex-1 h-11 rounded-xl"
           onClick={() => {
-            login({
-              id: 'user-apple',
-              name: 'Apple User',
-              email: 'user@icloud.com',
-              allergies: [],
-              dietaryRestrictions: [],
-              healthGoals: [],
-              isPremium: false,
-              isTrialUsed: false,
-              scanCount: 0,
-              authProvider: 'apple',
-              country: 'IN',
-              notificationEnabled: true,
-            })
-            setCurrentScreen('home')
-          }}
+          toast.info("Apple Login Coming Soon")
+         }}
         >
           <Smartphone className="h-4 w-4 mr-2" />
           Apple
