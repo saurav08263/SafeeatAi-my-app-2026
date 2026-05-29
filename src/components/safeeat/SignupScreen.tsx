@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useAppStore } from '@/lib/store'
+
 import {
   Shield,
   Loader2,
@@ -19,9 +20,7 @@ import { useState } from 'react'
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
-  signInWithPopup,
-  RecaptchaVerifier,
-  signInWithPhoneNumber
+  signInWithPopup
 } from "firebase/auth"
 
 import { initFirebase } from "@/lib/firebase"
@@ -34,12 +33,6 @@ export function SignupScreen() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-
-  const [phone, setPhone] = useState('')
-  const [otp, setOtp] = useState('')
-
-  const [confirmationResult, setConfirmationResult] =
-    useState<any>(null)
 
   // EMAIL SIGNUP
   const handleSignup = async (e: React.FormEvent) => {
@@ -110,15 +103,14 @@ export function SignupScreen() {
 
   }
 
-  // SEND OTP
-  const sendOTP = async () => {
-
-    if (!phone) {
-      toast.error("Enter phone number")
-      return
-    }
+  // GOOGLE SIGNUP
+  const handleGoogleSignup = async () => {
 
     try {
+
+      setIsLoading(true)
+
+      const provider = new GoogleAuthProvider()
 
       const { auth } = await initFirebase()
 
@@ -127,84 +119,27 @@ export function SignupScreen() {
         return
       }
 
-      // CREATE ONLY ONCE
-      if (!(window as any).recaptchaVerifier) {
-
-        ;(window as any).recaptchaVerifier =
-          new RecaptchaVerifier(
-            auth,
-            "recaptcha-container",
-            {
-              size: "normal"
-            }
-          )
-
-      }
-
-      const recaptcha =
-        (window as any).recaptchaVerifier
-
-      // INDIA FORMAT
-      const formattedPhone =
-        `+91${phone}`
-
-      const confirmation =
-        await signInWithPhoneNumber(
-          auth,
-          formattedPhone,
-          recaptcha
-        )
-
-      setConfirmationResult(confirmation)
-
-      toast.success("OTP Sent")
-
-    } catch (error: any) {
-
-      console.log(error)
-
-      toast.error(error.message)
-
-    }
-
-  }
-
-  // VERIFY OTP
-  const verifyOTP = async () => {
-
-    if (!otp) {
-      toast.error("Enter OTP")
-      return
-    }
-
-    if (!confirmationResult) {
-      toast.error("Send OTP first")
-      return
-    }
-
-    try {
-
       const result =
-        await confirmationResult.confirm(otp)
+        await signInWithPopup(auth, provider)
 
       const user = result.user
 
       signup({
         id: user.uid,
-        name: "Mobile User",
-        email: user.phoneNumber || "",
+        name: user.displayName || "Google User",
+        email: user.email || "",
         allergies: [],
         dietaryRestrictions: [],
         healthGoals: [],
         isPremium: false,
         isTrialUsed: false,
         scanCount: 0,
-        authProvider: 'phone',
+        authProvider: 'google',
         country: 'IN',
         notificationEnabled: true,
       })
 
-      toast.success("Mobile Signup Success")
+      toast.success("Google Signup Success")
 
       setCurrentScreen("home")
 
@@ -212,7 +147,15 @@ export function SignupScreen() {
 
       console.log(error)
 
-      toast.error(error.message)
+      if (
+        error.code !== "auth/cancelled-popup-request"
+      ) {
+        toast.error(error.message)
+      }
+
+    } finally {
+
+      setIsLoading(false)
 
     }
 
@@ -220,7 +163,9 @@ export function SignupScreen() {
 
   return (
 
-    <motion.div className="flex flex-col gap-4 px-4 pt-6 pb-6">
+    <motion.div
+      className="flex flex-col gap-4 px-4 pt-6 pb-6"
+    >
 
       {/* HEADER */}
 
@@ -322,129 +267,32 @@ export function SignupScreen() {
         <Button
           variant="outline"
           className="flex-1 h-11 rounded-xl"
-          onClick={async () => {
-
-            const provider =
-              new GoogleAuthProvider()
-
-            try {
-
-              const { auth } =
-                await initFirebase()
-
-              if (!auth) {
-                toast.error("Firebase not initialized")
-                return
-              }
-
-              const result =
-                await signInWithPopup(
-                  auth,
-                  provider
-                )
-
-              const user = result.user
-
-              signup({
-                id: user.uid,
-                name:
-                  user.displayName ||
-                  "Google User",
-
-                email:
-                  user.email || "",
-
-                allergies: [],
-                dietaryRestrictions: [],
-                healthGoals: [],
-                isPremium: false,
-                isTrialUsed: false,
-                scanCount: 0,
-                authProvider: 'google',
-                country: 'IN',
-                notificationEnabled: true,
-              })
-
-              toast.success(
-                "Google Signup Success"
-              )
-
-              setCurrentScreen("home")
-
-            } catch (error: any) {
-
-              console.log(error)
-
-              toast.error(error.message)
-
-            }
-
-          }}
+          disabled={isLoading}
+          onClick={handleGoogleSignup}
         >
 
           <Chrome className="h-4 w-4 mr-2" />
 
-          Google
+          Continue with Google
 
         </Button>
 
       </div>
 
-      {/* MOBILE OTP */}
+      {/* LOGIN LINK */}
 
-      <Card className="p-4 border-border/50 mt-2">
+      <p className="text-center text-sm text-muted-foreground mt-2">
 
-        <div className="space-y-4">
+        Already have an account?{' '}
 
-          <div className="space-y-2">
+        <button
+          onClick={() => setCurrentScreen('login')}
+          className="text-primary font-semibold hover:underline"
+        >
+          Login
+        </button>
 
-            <Label>Mobile Number</Label>
-
-            <Input
-              type="tel"
-              placeholder="9876543210"
-              value={phone}
-              onChange={(e) =>
-                setPhone(e.target.value)
-              }
-            />
-
-          </div>
-
-          <Button
-            className="w-full"
-            onClick={sendOTP}
-          >
-            Send OTP
-          </Button>
-
-          <div className="space-y-2">
-
-            <Label>Enter OTP</Label>
-
-            <Input
-              type="text"
-              placeholder="123456"
-              value={otp}
-              onChange={(e) =>
-                setOtp(e.target.value)
-              }
-            />
-
-          </div>
-
-          <Button
-            className="w-full"
-            onClick={verifyOTP}
-          >
-            Verify OTP
-          </Button>
-
-          <div id="recaptcha-container"></div>
-
-        </div>
-
-      </Card>
+      </p>
 
     </motion.div>
 
