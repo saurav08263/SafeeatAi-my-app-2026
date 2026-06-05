@@ -147,11 +147,7 @@ export function SignupScreen() {
 
       console.log(error)
 
-      if (
-        error.code !== "auth/cancelled-popup-request"
-      ) {
-        toast.error(error.message)
-      }
+      toast.error(error.message)
 
     } finally {
 
@@ -167,8 +163,6 @@ export function SignupScreen() {
       className="flex flex-col gap-4 px-4 pt-6 pb-6"
     >
 
-      {/* HEADER */}
-
       <div className="text-center mb-2">
 
         <div className="inline-flex h-14 w-14 rounded-2xl bg-primary/10 items-center justify-center mb-3">
@@ -179,13 +173,7 @@ export function SignupScreen() {
           Create Account
         </h1>
 
-        <p className="text-sm text-muted-foreground mt-1">
-          Start your food safety journey
-        </p>
-
       </div>
-
-      {/* EMAIL SIGNUP */}
 
       <Card className="p-4 border-border/50">
 
@@ -260,8 +248,6 @@ export function SignupScreen() {
 
       </Card>
 
-      {/* GOOGLE SIGNUP */}
-
       <div className="flex gap-3 mt-2">
 
         <Button
@@ -278,21 +264,6 @@ export function SignupScreen() {
         </Button>
 
       </div>
-
-      {/* LOGIN LINK */}
-
-      <p className="text-center text-sm text-muted-foreground mt-2">
-
-        Already have an account?{' '}
-
-        <button
-          onClick={() => setCurrentScreen('login')}
-          className="text-primary font-semibold hover:underline"
-        >
-          Login
-        </button>
-
-      </p>
 
     </motion.div>
 

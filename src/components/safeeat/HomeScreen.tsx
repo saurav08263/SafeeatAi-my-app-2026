@@ -182,7 +182,12 @@ function getSafetyConfig(safety: 'safe' | 'caution' | 'avoid') {
 }
 
 export function HomeScreen() {
-  const { setCurrentScreen, profile, scanHistory, subscriptionPlan } = useAppStore()
+  const {
+  setCurrentScreen,
+  profile,
+  scanHistory = [],
+  subscriptionPlan
+} = useAppStore()
   const { theme, setTheme } = useTheme()
 
   const handleThemeToggle = () => {

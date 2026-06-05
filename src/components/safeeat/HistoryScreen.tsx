@@ -60,7 +60,7 @@ export function HistoryScreen() {
   useEffect(() => {
     const fetchScans = async () => {
       try {
-        const res = await fetch('/api/scans?limit=50')
+        const res = await fetch('/api/scan?limit=50')
         const data = await res.json()
         if (data.success && data.scans) {
           setScanHistory(data.scans)
@@ -90,7 +90,7 @@ export function HistoryScreen() {
 
   const handleClearHistory = async () => {
     try {
-      await fetch('/api/scans', { method: 'DELETE' })
+      await fetch('/api/scan', { method: 'DELETE' })
       clearHistory()
       toast.success('History cleared')
     } catch {
@@ -106,7 +106,7 @@ export function HistoryScreen() {
   const handleDeleteScan = (scan: ScanResult, e: React.MouseEvent) => {
     e.stopPropagation()
     if (scan.id) {
-      fetch(`/api/scans?id=${scan.id}`, { method: 'DELETE' }).catch(() => {})
+      fetch(`/api/scan?id=${scan.id}`, { method: 'DELETE' }).catch(() => {})
     }
     setScanHistory(scanHistory.filter(s => s !== scan))
     toast.success('Scan deleted')

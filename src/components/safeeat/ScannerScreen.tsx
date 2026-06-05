@@ -91,7 +91,7 @@ export function ScannerScreen() {
       addToHistory(result)
 
       // Save to database in background
-      fetch('/api/scans', {
+      fetch('/api/scan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(result),

@@ -136,7 +136,7 @@ export default function SafeEatApp() {
           setProfile(profileData.profile)
         }
 
-        const scansRes = await fetch('/api/scans?limit=50')
+        const scansRes = await fetch('/api/scan?limit=50')
         const scansData = await scansRes.json()
         if (scansData.success) {
           setScanHistory(scansData.scans)

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 
+console.log("SCANS API LOADED")
+
 // GET - Fetch scan history
 export async function GET(request: NextRequest) {
   try {
@@ -16,13 +18,13 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    const scans = await db.scan.findMany({
+    const scan = await db.scan.findMany({
       where: { userId: user.id },
       orderBy: { createdAt: 'desc' },
       take: limit,
     })
 
-    const formatted = scans.map(scan => ({
+    const formatted = scan.map(scan => ({
       id: scan.id,
       productName: scan.productName,
       safetyScore: scan.safetyScore,
@@ -39,10 +41,10 @@ export async function GET(request: NextRequest) {
       createdAt: scan.createdAt.toISOString(),
     }))
 
-    return NextResponse.json({ success: true, scans: formatted })
+    return NextResponse.json({ success: true, scan: formatted })
   } catch (error) {
-    console.error('Fetch scans error:', error)
-    return NextResponse.json({ error: 'Failed to fetch scans' }, { status: 500 })
+    console.error('Fetch scan error:', error)
+    return NextResponse.json({ error: 'Failed to fetch scan' }, { status: 500 })
   }
 }
 
@@ -105,7 +107,7 @@ export async function DELETE(request: NextRequest) {
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Clear scans error:', error)
-    return NextResponse.json({ error: 'Failed to clear scans' }, { status: 500 })
+    console.error('Clear scan error:', error)
+    return NextResponse.json({ error: 'Failed to clear scan' }, { status: 500 })
   }
 }

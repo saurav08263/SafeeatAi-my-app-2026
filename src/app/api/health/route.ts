@@ -1,10 +1,8 @@
-import { NextResponse } from 'next/server'
-import { isZAIReady } from '@/lib/zai-sdk'
+import { NextResponse } from "next/server";
 
 export async function GET() {
-  const ready = isZAIReady()
-  return NextResponse.json({ 
-    status: ready ? 'active' : 'warming', 
-    ready 
-  })
+  return NextResponse.json({
+    status: "active",
+    ready: true,
+  });
 }

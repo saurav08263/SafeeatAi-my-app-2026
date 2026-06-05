@@ -302,6 +302,7 @@ export function ResultsScreen() {
       )}
 
       {/* Ingredients Breakdown */}
+      
       {result.ingredients.length > 0 && (
         <motion.div variants={item}>
           <Card className="overflow-hidden border-border/50">
@@ -324,7 +325,7 @@ export function ResultsScreen() {
             {expandedSections.ingredients && (
               <div className="px-4 pb-4 space-y-2">
                 {result.ingredients.map((ingredient, i) => {
-                  const style = safetyColorMap[ingredient.safety]
+                 const style = safetyColorMap[ingredient.safety] || safetyColorMap.safe
                   const Icon = style.icon
                   return (
                     <div key={i} className={`flex items-start gap-2 p-2.5 rounded-lg ${style.bg} border ${style.border}`}>

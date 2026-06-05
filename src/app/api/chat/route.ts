@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { callAI, isPendingError } from '@/lib/zai-sdk'
+import { generateText } from '@/lib/gemini'
 
 const CHAT_SYSTEM_PROMPT = `You are SafeEat AI, a friendly and knowledgeable food safety assistant. You help users with questions about food safety, nutrition, food combinations, allergens, and dietary concerns.
 
@@ -27,6 +27,7 @@ You are NOT a replacement for professional medical advice. Always include a disc
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
+
     const { message, history } = body as {
       message?: string
       history?: Array<{ role: string; content: string }>
@@ -39,14 +40,19 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Build conversation context
-    const messages: Array<{ role: 'assistant' | 'user'; content: string }> = [
-      { role: 'assistant', content: CHAT_SYSTEM_PROMPT },
+    const messages: Array<{
+      role: 'assistant' | 'user'
+      content: string
+    }> = [
+      {
+        role: 'assistant',
+        content: CHAT_SYSTEM_PROMPT,
+      },
     ]
 
-    // Add recent history for context
     if (history?.length) {
       const recentHistory = history.slice(-6)
+
       for (const msg of recentHistory) {
         if (msg.role === 'user' || msg.role === 'assistant') {
           messages.push({
@@ -57,18 +63,16 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Add current message
-    messages.push({ role: 'user', content: message })
+    messages.push({
+      role: 'user',
+      content: message,
+    })
 
-    const response = await callAI(
-      (zai) => zai.chat.completions.create({
-        messages,
-        thinking: { type: 'disabled' },
-      }),
-      'Chat completion'
-    )
+    const prompt = messages
+      .map((msg) => `${msg.role}: ${msg.content}`)
+      .join('\n\n')
 
-    const aiMessage = response.choices[0]?.message?.content || 'I\'m sorry, I couldn\'t process your question. Please try again.'
+    const aiMessage = await generateText(prompt)
 
     return NextResponse.json({
       success: true,
@@ -76,17 +80,20 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Chat error:', error)
-    const errMsg = error instanceof Error ? error.message : 'Unknown error'
-    const pending = isPendingError(error)
+
+    const errMsg =
+      error instanceof Error
+        ? error.message
+        : 'Unknown error'
+
     return NextResponse.json(
       {
         success: false,
-        error: pending ? 'AI service is initializing, please try again in a few seconds' : 'Failed to process your message',
-        message: pending ? 'AI is warming up. Please try again in a moment.' : 'I\'m having trouble right now. Please try again in a moment.',
+        error: 'Failed to process your message',
+        message: 'AI service error',
         details: errMsg,
-        isPending: pending,
       },
-      { status: pending ? 503 : 500 }
+      { status: 500 }
     )
   }
 }

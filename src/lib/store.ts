@@ -266,7 +266,9 @@ export const useAppStore = create<AppState>((set, get) => ({
   scanHistory: [],
   setScanHistory: (history) => set({ scanHistory: history }),
   addToHistory: (scan) =>
-    set((state) => ({ scanHistory: [scan, ...state.scanHistory] })),
+  set((state) => ({
+    scanHistory: [scan, ...(Array.isArray(state.scanHistory) ? state.scanHistory : [])],
+  })),
   clearHistory: () => set({ scanHistory: [] }),
 
   // Profile

@@ -62,7 +62,7 @@ export function KidsScreen() {
       setScanResult(result)
       addToHistory(result)
 
-      fetch('/api/scans', {
+      fetch('/api/scan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(result),
