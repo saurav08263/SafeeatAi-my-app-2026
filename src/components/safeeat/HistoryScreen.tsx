@@ -12,18 +12,14 @@ import { toast } from 'sonner'
 type FilterType = 'all' | 'scan' | 'combo' | 'medicine' | 'saved'
 
 export function HistoryScreen() {
-  const store = useAppStore()
+  const {
+    scanHistory = [],
+    setScanHistory,
+    setCurrentScreen,
+    setSelectedScan,
+    clearHistory,
+  } = useAppStore()
 
-console.log("FULL STORE =", store)
-
-const scanHistory = Array.isArray(store?.scanHistory)
-  ? store.scanHistory
-  : []
-
-const setScanHistory = store?.setScanHistory
-const setCurrentScreen = store?.setCurrentScreen
-const setSelectedScan = store?.setSelectedScan
-const clearHistory = store?.clearHistory
   const [searchQuery, setSearchQuery] = useState('')
   const [activeFilter] = useState<FilterType>('all')
   const [isLoading, setIsLoading] = useState(true)
@@ -34,22 +30,15 @@ const clearHistory = store?.clearHistory
         const res = await fetch('/api/scan?limit=50')
         const data = await res.json()
 
-        console.log("API DATA =", data)
-        console.log("SCAN ARRAY =", data.scan)
+        console.log('API DATA =', data)
 
-        console.log('SCANS DATA =', data)
+        const scans = Array.isArray(data?.scan)
+          ? data.scan
+          : Array.isArray(data?.scans)
+          ? data.scans
+          : []
 
-        if (data.success) {
-  setScanHistory(
-    Array.isArray(data.scan)
-      ? data.scan
-      : []
-  )
-}
-        
-        else {
-          setScanHistory([])
-        }
+        setScanHistory(scans)
       } catch (err) {
         console.error('Failed to fetch scans:', err)
         setScanHistory([])
@@ -61,7 +50,7 @@ const clearHistory = store?.clearHistory
     fetchScans()
   }, [setScanHistory])
 
-  const filteredHistory = (scanHistory || []).filter((scan: any) => {
+  const filteredHistory = scanHistory.filter((scan: any) => {
     const matchesSearch =
       !searchQuery ||
       (scan?.productName || '')
@@ -85,7 +74,8 @@ const clearHistory = store?.clearHistory
 
       clearHistory()
       toast.success('History cleared')
-    } catch {
+    } catch (error) {
+      console.error(error)
       toast.error('Failed to clear history')
     }
   }
@@ -104,13 +94,14 @@ const clearHistory = store?.clearHistory
       }
 
       setScanHistory(
-        (scanHistory || []).filter(
-          (s: any) => s.id !== scan.id
+        scanHistory.filter(
+          (item: any) => item.id !== scan.id
         )
       )
 
       toast.success('Scan deleted')
-    } catch {
+    } catch (error) {
+      console.error(error)
       toast.error('Delete failed')
     }
   }
@@ -216,10 +207,7 @@ const clearHistory = store?.clearHistory
                     variant="ghost"
                     size="icon"
                     onClick={(e) =>
-                      handleDeleteScan(
-                        scan,
-                        e
-                      )
+                      handleDeleteScan(scan, e)
                     }
                   >
                     <Trash2 className="h-4 w-4" />
