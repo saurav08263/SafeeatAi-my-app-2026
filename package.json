@@ -24,10 +24,10 @@
     "android:sha256": "cd android && JAVA_HOME=/home/z/.jdk/jdk-21.0.11+10 ANDROID_HOME=/home/z/android-sdk keytool -list -v -keystore app/safeeat-release.jks -alias safeeat -storepass safeeat2024 -keypass safeeat2024 2>/dev/null | grep SHA256"
   },
   "dependencies": {
-    "@capacitor/android": "^8.3.4",
+    "@capacitor/android": "^8.4.0",
     "@capacitor/camera": "^8.2.0",
-    "@capacitor/cli": "^8.3.4",
-    "@capacitor/core": "^8.3.4",
+    "@capacitor/cli": "^8.4.0",
+    "@capacitor/core": "^8.4.0",
     "@capacitor/filesystem": "^8.1.2",
     "@capacitor/haptics": "^8.0.2",
     "@capacitor/local-notifications": "^8.2.0",
