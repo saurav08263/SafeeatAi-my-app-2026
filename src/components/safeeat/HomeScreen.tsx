@@ -167,11 +167,56 @@ const trustStats = [
   { value: '50K+', label: 'Daily Scans', icon: Shield },
 ]
 
-const liveActivities = [
-  { user: 'Priya', action: 'scanned Maggi Noodles', time: '2 min ago', safe: true },
-  { user: 'Rahul', action: 'checked Milk + Fish combo', time: '5 min ago', safe: false },
-  { user: 'Sneha', action: 'verified pregnancy food', time: '8 min ago', safe: true },
+const users = [
+  'Sofia', 'Caleb', 'Layla', 'Soren', 'Chloe', 'Fares', 'Elena', 'Gabriel', 
+  'Henry', 'Inaya', 'Tariq', 'Zara', 'Mateo', 'Penelope', 'Arthur', 'Zuri', 
+  'Oliver', 'Yasmine', 'Giovanni', 'Astrid', 'Ethan', 'Sakura', 'Malik', 'Amelia', 
+  'Kwame', 'Clara', 'Nikolai', 'Farah', 'Theodore', 'Valentina', 'Hamza', 'Julia', 
+  'Liam', 'Nia', 'Rayan', 'Anastasia', 'Julian', 'Hazel', 'Alistair', 'Reem', 
+  'Haruto', 'Eleanor', 'Dmitri', 'Camila', 'Zain', 'Violet', 'Santiago', 'Maeve', 
+  'Tunde', 'Noor', 'Alejandro', 'Evelyn', 'Ren', 'Talia', 'Freya', 'Karim', 
+  'Charlotte', 'Magnus', 'Milena', 'Iris', 'Diego', 'Mei', 'Hugo', 'Amira', 
+  'Leonardo', 'Camille', 'Zayd', 'Chiara', 'Idris', 'Milan'
 ]
+
+const actions = [
+  'scanned Maggi Noodles',
+  'checked Milk + Fish combo',
+  'verified pregnancy food',
+  'scanned Protein Bar',
+  'checked Pizza ingredients',
+  'verified Peanut Allergy',
+  'scanned Chocolate',
+  'checked Energy Drink',
+  'verified Baby Food',
+  'scanned Ice Cream',
+  'checked Diet Soda ingredients',
+  'scanned Oats & Almond Milk',
+  'verified Gluten-Free Pasta',
+  'scanned Greek Yogurt',
+  'checked Caffeine levels in Coffee'
+]
+
+const times = [
+  'Just now',
+  '1 min ago',
+  '2 min ago',
+  '3 min ago',
+  '5 min ago',
+  '8 min ago',
+  '10 min ago',
+  '15 min ago',
+  '20 min ago'
+]
+
+const liveActivities = Array.from({ length: 3 }, () => ({
+  user: users[Math.floor(Math.random() * users.length)],
+  action: actions[Math.floor(Math.random() * actions.length)],
+  time: times[Math.floor(Math.random() * times.length)],
+  safe: Math.random() > 0.3,
+}))
+
+console.log(liveActivities);
 
 function getSafetyConfig(safety: 'safe' | 'caution' | 'avoid') {
   switch (safety) {
@@ -268,7 +313,7 @@ export function HomeScreen() {
           <div className="flex-1 min-w-0">
             <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, repeat: Infinity, repeatDelay: 3 }}>
               <p className="text-[10px] text-muted-foreground truncate">
-                <span className="font-semibold text-foreground">{liveActivities[0].user}</span> {liveActivities[0].action} · <span className="text-[8px]">{liveActivities[0].time}</span> {liveActivities[0].safe ? '✅' : '⚠️'}
+                <span className="font-semibold text-foreground">{liveActivities[Math.floor(Math.random() * liveActivities.length)].user}</span> {liveActivities[Math.floor(Math.random() * liveActivities.length)].action} · <span className="text-[8px]">{liveActivities[Math.floor(Math.random() * liveActivities.length)].time}</span> {liveActivities[0].safe ? '✅' : '⚠️'}
               </p>
             </motion.div>
           </div>

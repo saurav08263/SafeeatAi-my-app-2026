@@ -20,8 +20,7 @@ export function WelcomeScreen() {
   const { setCurrentScreen } = useAppStore()
 
   return (
-    <div className="relative min-h-screen flex flex-col overflow-hidden bg-background">
-      {/* Green glow effects */}
+<div className="relative min-h-[100dvh] flex flex-col bg-background">      {/* Green glow effects */}
       <div className="absolute top-20 left-1/2 -translate-x-1/2 w-72 h-72 bg-primary/20 rounded-full blur-[120px]" />
       <div className="absolute bottom-40 left-10 w-40 h-40 bg-primary/10 rounded-full blur-[80px]" />
       <div className="absolute bottom-20 right-10 w-32 h-32 bg-safe/10 rounded-full blur-[80px]" />

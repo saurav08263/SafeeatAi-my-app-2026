@@ -127,7 +127,8 @@ export default function RootLayout({
         <meta name="theme-color" content="#0a1f0e" />
       </head>
       <body
-        className={`${inter.variable} antialiased bg-background text-foreground overflow-hidden fixed inset-0`}
+      
+  className={`${inter.variable} antialiased bg-background text-foreground`}
       >
         <ThemeProvider
           attribute="class"

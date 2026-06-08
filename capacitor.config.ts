@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'SafeEat AI',
 
   server: {
-    url: 'https://safeeat-ai-my-app-2026-ow3h1xtxi.vercel.app',
+    url: 'https://safeeat-ai-my-app-2026-zk15.vercel.app',
     cleartext: true,
   },
 

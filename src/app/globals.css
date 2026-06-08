@@ -1598,3 +1598,19 @@ html:not(.dark) .animate-shimmer {
 html:not(.dark) .premium-particle {
   background: oklch(0 0 0 / 0.06);
 }
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+#__next {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
