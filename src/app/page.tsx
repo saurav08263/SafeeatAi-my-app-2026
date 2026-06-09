@@ -136,11 +136,18 @@ export default function SafeEatApp() {
           setProfile(profileData.profile)
         }
 
-        const scansRes = await fetch('/api/scan?limit=50')
-        const scansData = await scansRes.json()
-        if (scansData.success) {
-          setScanHistory(scansData.scans)
-        }
+      const scansRes = await fetch('/api/scan?limit=50')
+const scansData = await scansRes.json()
+
+if (scansData.success) {
+  setScanHistory(
+    Array.isArray(scansData.scan)
+      ? scansData.scan
+      : Array.isArray(scansData.scans)
+      ? scansData.scans
+      : []
+  )
+}
       } catch (err) {
         console.error('Failed to load initial data:', err)
       }
