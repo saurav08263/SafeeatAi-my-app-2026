@@ -132,3 +132,4 @@ export function useCapacitor() {
     isWeb: platform.platform === 'web',
   }
 }
+

@@ -43,7 +43,7 @@ const faqItems = [
   },
   {
     question: 'What subscription plans are available?',
-    answer: 'We offer two plans through Google Play Billing: Monthly Plan at ₹299/month (with ads) and Yearly Plan at ₹1,999/year (ad-free). Premium unlocks unlimited scans, combination analysis, medicine interaction checks, and more.',
+    answer: 'We offer two plans through Google Play Billing: Monthly Plan at ₹149/month (with ads) and Yearly Plan at ₹999/year (ad-free). Premium unlocks unlimited scans, combination analysis, medicine interaction checks, and more.',
   },
   {
     question: 'Can I scan medicine for safety?',
@@ -82,7 +82,7 @@ The information provided by SafeEat AI is for general informational purposes onl
 
 4. SUBSCRIPTION & PAYMENTS
 4.1 All payments are processed through Google Play Billing.
-4.2 Subscription plans: Monthly (₹299/month) and Yearly (₹1,999/year).
+4.2 Subscription plans: Monthly (₹149/month) and Yearly (₹999/year).
 4.3 Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current period.
 4.4 Cancellation can be done through Google Play Store settings.
 4.5 No refunds are provided for partial billing periods.
@@ -484,3 +484,4 @@ export function HelpScreen() {
     </motion.div>
   )
 }
+

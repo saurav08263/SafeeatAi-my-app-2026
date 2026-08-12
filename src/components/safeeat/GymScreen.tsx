@@ -155,3 +155,4 @@ export function GymScreen() {
     </motion.div>
   )
 }
+

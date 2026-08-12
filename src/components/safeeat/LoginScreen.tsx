@@ -16,7 +16,9 @@ import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 
 import { toast } from 'sonner'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
+import Select from "react-select"
+import countryList from "react-select-country-list"
 
 import {
   signInWithEmailAndPassword,
@@ -59,6 +61,12 @@ export function LoginScreen() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const countries = useMemo(() => countryList().getData(), [])
+
+const [country, setCountry] = useState({
+  value: "IN",
+  label: "India"
+})
 
   const [phone, setPhone] = useState('')
   const [otp, setOtp] = useState('')
@@ -110,7 +118,7 @@ export function LoginScreen() {
         isTrialUsed: false,
         scanCount: 0,
         authProvider: 'email',
-        country: 'IN',
+        country: country.value,
         notificationEnabled: true,
       })
 
@@ -168,7 +176,7 @@ export function LoginScreen() {
         isTrialUsed: false,
         scanCount: 0,
         authProvider: 'google',
-        country: 'IN',
+        country: country.value,
         notificationEnabled: true,
       })
 
@@ -264,7 +272,7 @@ export function LoginScreen() {
         isTrialUsed: false,
         scanCount: 0,
         authProvider: 'phone',
-        country: 'IN',
+        country: country.value,
         notificationEnabled: true,
       })
 
@@ -326,7 +334,20 @@ export function LoginScreen() {
             onSubmit={handleLogin}
             className="space-y-4"
           >
+            <div className="bg-red-500 text-white p-3 rounded-lg">
+  COUNTRY TEST
+</div>
+<div className="space-y-2">
+  <Label>Select Country</Label>
 
+  <Select
+    options={countries}
+    value={country}
+    onChange={(value: any) => setCountry(value)}
+    isSearchable
+    placeholder="Search your country..."
+  />
+</div>
             <div className="space-y-2">
 
               <Label>Email</Label>

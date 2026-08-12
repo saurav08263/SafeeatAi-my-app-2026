@@ -123,7 +123,16 @@ function ScreenRenderer() {
 }
 
 export default function SafeEatApp() {
-  const { setProfile, setScanHistory, currentScreen, setCurrentScreen, hasSeenOnboarding, setHasSeenOnboarding, navigateBack } = useAppStore()
+ const {
+  setProfile,
+  setScanHistory,
+  currentScreen,
+  setCurrentScreen,
+  hasSeenOnboarding,
+  setHasSeenOnboarding,
+  navigateBack,
+  isAuthenticated
+} = useAppStore()
   const [showSplash, setShowSplash] = useState(true)
 
   // Load initial data
@@ -157,16 +166,28 @@ if (scansData.success) {
 
   // Navigate after splash
   useEffect(() => {
-    if (!showSplash) {
-      if (hasSeenOnboarding) {
-        setCurrentScreen('home')
-      } else {
-        setCurrentScreen('welcome')
-        setHasSeenOnboarding(true)
-      }
-    }
-  }, [showSplash, hasSeenOnboarding, setCurrentScreen, setHasSeenOnboarding])
+  if (!showSplash) {
 
+    if (!hasSeenOnboarding) {
+      setCurrentScreen('welcome')
+      setHasSeenOnboarding(true)
+      return
+    }
+
+    if (isAuthenticated) {
+      setCurrentScreen('home')
+    } else {
+      setCurrentScreen('login')
+    }
+
+  }
+}, [
+  showSplash,
+  hasSeenOnboarding,
+  isAuthenticated,
+  setCurrentScreen,
+  setHasSeenOnboarding,
+])
   // Handle Capacitor Android back button
   useEffect(() => {
     const handleBackButton = () => {
@@ -214,3 +235,4 @@ if (scansData.success) {
     </>
   )
 }
+

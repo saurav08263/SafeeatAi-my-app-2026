@@ -111,3 +111,4 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to clear scan' }, { status: 500 })
   }
 }
+

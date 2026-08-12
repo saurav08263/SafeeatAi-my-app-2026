@@ -64,7 +64,7 @@ export function PaymentSuccessScreen() {
         </p>
       </motion.div>
 
-      {/* Google Play Billing Info */}
+      {/* Razorpay Payment Info */}
       <motion.div variants={item} className="w-full">
         <Card className="p-4 border-green-500/20 bg-green-500/5">
           <div className="flex items-center gap-3">
@@ -72,16 +72,18 @@ export function PaymentSuccessScreen() {
               <Smartphone className="h-5 w-5 text-white" />
             </div>
             <div>
-              <p className="text-xs font-semibold">Purchased via Google Play</p>
+              <p className="text-xs font-semibold">
+Payment Successful via Razorpay
+</p>
               <p className="text-[10px] text-muted-foreground">
-                {subscriptionPlan === 'yearly'
-                  ? 'Yearly plan · No ads · Renews automatically'
-                  : subscriptionPlan === 'monthly'
-                    ? 'Monthly plan · Minimal ads · Renews automatically'
-                    : 'Premium plan · Renews automatically'}
+{subscriptionPlan === 'yearly'
+  ? 'Yearly Premium • No Ads'
+  : subscriptionPlan === 'monthly'
+    ? 'Monthly Premium'
+    : 'Premium Activated'}
               </p>
               <p className="text-[10px] text-muted-foreground mt-0.5">
-                Manage in Play Store → Subscriptions
+                Thank you for subscribing to SafeEat AI Premium.
               </p>
             </div>
           </div>
@@ -122,3 +124,4 @@ export function PaymentSuccessScreen() {
     </motion.div>
   )
 }
+

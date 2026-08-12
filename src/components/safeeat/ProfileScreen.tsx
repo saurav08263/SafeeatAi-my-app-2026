@@ -43,10 +43,12 @@ export function ProfileScreen() {
   const { theme, setTheme } = useTheme()
   const [isEditing, setIsEditing] = useState(false)
   const [editName, setEditName] = useState(profile?.name || 'User')
+  const [country, setCountry] = useState(profile?.country || 'IN')
   const [selectedAllergies, setSelectedAllergies] = useState<string[]>(profile?.allergies || [])
   const [selectedDietary, setSelectedDietary] = useState<string[]>(profile?.dietaryRestrictions || [])
   const [selectedGoals, setSelectedGoals] = useState<string[]>(profile?.healthGoals || [])
   const [isSaving, setIsSaving] = useState(false)
+
   const [isThemeAnimating, setIsThemeAnimating] = useState(false)
 
   const handleThemeToggle = (newTheme: string) => {
@@ -71,6 +73,7 @@ export function ProfileScreen() {
           setSelectedAllergies(data.profile.allergies || [])
           setSelectedDietary(data.profile.dietaryRestrictions || [])
           setSelectedGoals(data.profile.healthGoals || [])
+          setCountry(data.profile.country || 'IN')
         }
       } catch (err) {
         console.error('Failed to fetch profile:', err)
@@ -90,6 +93,7 @@ export function ProfileScreen() {
           allergies: selectedAllergies,
           dietaryRestrictions: selectedDietary,
           healthGoals: selectedGoals,
+          country,
         }),
       })
       const data = await res.json()
@@ -164,6 +168,21 @@ export function ProfileScreen() {
               ) : (
                 <p className="font-bold text-base">{profile?.name || 'User'}</p>
               )}
+              <select
+  value={country}
+  onChange={(e) => setCountry(e.target.value)}
+  className="mt-3 h-10 w-full rounded-lg border border-border bg-background px-3 text-sm"
+>
+  <option value="IN">🇮🇳 India</option>
+  <option value="US">🇺🇸 United States</option>
+  <option value="GB">🇬🇧 United Kingdom</option>
+  <option value="DE">🇩🇪 Germany</option>
+  <option value="FR">🇫🇷 France</option>
+  <option value="ES">🇪🇸 Spain</option>
+  <option value="IT">🇮🇹 Italy</option>
+  <option value="CA">🇨🇦 Canada</option>
+  <option value="AU">🇦🇺 Australia</option>
+</select>
               <p className="text-xs text-muted-foreground">{profile?.email || 'user@safeeat.ai'}</p>
               {profile?.phone && (
                 <p className="text-xs text-muted-foreground">{profile.phone}</p>
@@ -308,49 +327,7 @@ export function ProfileScreen() {
       </motion.div>
 
       {/* ━━━ What Users Say ━━━ */}
-      <motion.div variants={item}>
-        <div className="glass-card p-4">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-bold flex items-center gap-1.5">
-              <Heart className="h-4 w-4 text-danger" />
-              What Users Say
-            </h3>
-            <div className="flex items-center gap-0.5">
-              {[1,2,3,4,5].map(i => (
-                <Star key={i} className="h-3 w-3 text-amber-400 fill-amber-400" />
-              ))}
-              <span className="text-[10px] font-semibold text-muted-foreground ml-1">4.8/5</span>
-            </div>
-          </div>
-          <div className="flex gap-2.5 overflow-x-auto pb-1 -mx-1 px-1 snap-x snap-mandatory premium-scroll">
-            {testimonials.map((review, i) => (
-              <div
-                key={i}
-                className="shrink-0 w-[200px] snap-start rounded-xl glass-card-subtle p-3"
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <div className={cn(
-                    'h-7 w-7 rounded-full flex items-center justify-center text-[10px] font-bold text-white',
-                    i % 3 === 0 ? 'gradient-primary' : i % 3 === 1 ? 'gradient-safe' : 'bg-violet-500'
-                  )}>
-                    {review.name.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-semibold leading-none">{review.name}</p>
-                    <p className="text-[9px] text-muted-foreground">{review.city}</p>
-                  </div>
-                  <div className="ml-auto flex gap-0.5">
-                    {Array.from({ length: review.rating }).map((_, j) => (
-                      <Star key={j} className="h-2.5 w-2.5 text-amber-400 fill-amber-400" />
-                    ))}
-                  </div>
-                </div>
-                <p className="text-[11px] text-muted-foreground leading-relaxed">&ldquo;{review.text}&rdquo;</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </motion.div>
+      
 
       {/* Allergies */}
       <motion.div variants={item}>
@@ -504,3 +481,4 @@ export function ProfileScreen() {
     </motion.div>
   )
 }
+

@@ -2,7 +2,9 @@
 
 import { motion } from 'framer-motion'
 import { useAppStore } from '@/lib/store'
-
+import Select from "react-select"
+import countryList from "react-select-country-list"
+import { useMemo } from "react"
 import {
   Shield,
   Loader2,
@@ -33,6 +35,14 @@ export function SignupScreen() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const countries = useMemo(() => countryList().getData(), [])
+
+type CountryOption = {
+  value: string
+  label: string
+}
+
+const [country, setCountry] = useState<CountryOption | null>(null)
 
   // EMAIL SIGNUP
   const handleSignup = async (e: React.FormEvent) => {
@@ -40,13 +50,14 @@ export function SignupScreen() {
     e.preventDefault()
 
     if (
-      !name.trim() ||
-      !email.trim() ||
-      !password.trim()
-    ) {
-      toast.error('Please fill in all fields')
-      return
-    }
+  !name.trim() ||
+  !email.trim() ||
+  !password.trim() ||
+  !country
+) {
+  toast.error("Please select your country")
+  return
+}
 
     setIsLoading(true)
 
@@ -79,7 +90,7 @@ export function SignupScreen() {
         isTrialUsed: false,
         scanCount: 0,
         authProvider: 'email',
-        country: 'IN',
+        country: country?.value || "",
         notificationEnabled: true,
       }
 
@@ -104,13 +115,18 @@ export function SignupScreen() {
   }
 
   // GOOGLE SIGNUP
-  const handleGoogleSignup = async () => {
+ const handleGoogleSignup = async () => {
 
-    try {
+  if (!country) {
+    toast.error("Please select your country")
+    return
+  }
 
-      setIsLoading(true)
+  try {
 
-      const provider = new GoogleAuthProvider()
+    setIsLoading(true)
+
+    const provider = new GoogleAuthProvider()
 
       const { auth } = await initFirebase()
 
@@ -135,7 +151,7 @@ export function SignupScreen() {
         isTrialUsed: false,
         scanCount: 0,
         authProvider: 'google',
-        country: 'IN',
+        country: country?.value || "",
         notificationEnabled: true,
       })
 
@@ -170,7 +186,7 @@ export function SignupScreen() {
         </div>
 
         <h1 className="text-2xl font-bold tracking-tight">
-          Create Account
+          CREATE ACCOUNT 
         </h1>
 
       </div>
@@ -212,20 +228,65 @@ export function SignupScreen() {
 
           </div>
 
-          <div className="space-y-2">
+      
 
-            <Label>Password</Label>
+ <div className="space-y-2">
 
-            <Input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) =>
-                setPassword(e.target.value)
-              }
-            />
+  <div className="bg-red-500 text-white p-3 rounded">
+    COUNTRY TEST
+  </div>
 
-          </div>
+  <Select
+    options={countries}
+    value={country}
+    onChange={(value: any) => setCountry(value)}
+    isSearchable
+    placeholder="Search your country..."
+    styles={{
+      control: (base) => ({
+        ...base,
+        backgroundColor: "#0b0b0b",
+        borderColor: "#333",
+        color: "#fff",
+      }),
+      menu: (base) => ({
+        ...base,
+        backgroundColor: "#fff",
+      }),
+      option: (base, state) => ({
+        ...base,
+        backgroundColor: state.isFocused ? "#dbeafe" : "#fff",
+        color: "#000",
+      }),
+      singleValue: (base) => ({
+        ...base,
+        color: "#fff",
+      }),
+      input: (base) => ({
+        ...base,
+        color: "#fff",
+      }),
+      placeholder: (base) => ({
+        ...base,
+        color: "#888",
+      }),
+    }}
+  />
+
+</div>
+
+<div className="space-y-2">
+
+  <Label>Password</Label>
+
+  <Input
+    type="password"
+    placeholder="Password"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+  />
+
+</div>
 
           <Button
             type="submit"
@@ -239,7 +300,7 @@ export function SignupScreen() {
                 Creating...
               </>
             ) : (
-              'Create Account'
+              'CREATE ACCOUNT '
             )}
 
           </Button>

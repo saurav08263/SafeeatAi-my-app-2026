@@ -1,7 +1,8 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, type Variants } from 'framer-motion'
 import { useAppStore } from '@/lib/store'
+import { getPricing } from '@/lib/pricing'
 import {
   Crown, Check, Zap, Shield, ScanLine, Star,
   Sparkles, ChevronLeft, X, Lock, EyeOff, Smartphone
@@ -11,98 +12,55 @@ import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
 import { useState } from 'react'
+declare global {
+  interface Window {
+    Razorpay: any
+  }
+}
 import { cn } from '@/lib/utils'
 
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.06 } },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.06,
+    },
+  },
 }
 
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } },
+const item: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'spring',
+      stiffness: 300,
+      damping: 24,
+    } as any,
+  },
 }
 
-const plans = [
-  {
-    id: 'free',
-    name: 'Free Trial',
-    price: 0,
-    currency: '',
-    period: '',
-    subtitle: '2 Days Free',
-    features: [
-      'All premium features for 2 days',
-      'Unlimited scans during trial',
-      'Food combination checker',
-      'Basic AI analysis',
-    ],
-    limitations: [
-      'Ends after 2 days',
-      'Must subscribe to continue',
-    ],
-    cta: 'Start Free Trial',
-    popular: false,
-    color: 'muted',
-  },
-  {
-    id: 'monthly',
-    name: 'Monthly',
-    price: 299,
-    currency: '₹',
-    period: '/month',
-    subtitle: 'Some ads included',
-    productId: 'com.safeeat.premium.monthly',
-    features: [
-      'Unlimited scans',
-      'Food combination checker',
-      'Medicine + Food check',
-      'Pregnancy & Kids safe',
-      'Gym diet checker',
-      'Priority AI analysis',
-      'Chat AI assistant',
-    ],
-    limitations: [
-      'Contains some ads',
-    ],
-    cta: 'Subscribe Monthly',
-    popular: true,
-    color: 'primary',
-    badge: 'POPULAR',
-  },
-  {
-    id: 'yearly',
-    name: 'Yearly',
-    price: 1999,
-    currency: '₹',
-    period: '/year',
-    subtitle: 'No ads — Best experience',
-    monthlyEquivalent: '₹167/mo',
-    productId: 'com.safeeat.premium.yearly',
-    features: [
-      'Everything in Monthly',
-      '🚫 Zero ads — ever',
-      'Priority 24/7 support',
-      'Export reports (PDF)',
-      'Early access to new features',
-      'Family sharing (up to 3)',
-    ],
-    limitations: [],
-    cta: 'Subscribe Yearly',
-    popular: false,
-    color: 'safe',
-    badge: 'BEST VALUE — SAVE 44%',
-  },
-]
 
-// ─── Google Play Purchase Dialog (Bottom Sheet) ───────────────────────────
-function GooglePlayPurchaseDialog({
+// ─── Razorpay Purchase Dialog (Bottom Sheet) ──────────────────────────
+function RazorpayPurchaseDialog({
   plan,
   onClose,
   onPurchase,
   purchasing,
 }: {
-  plan: typeof plans[number]
+  plan: {
+  id: string
+  name: string
+  price: number
+  currency: string
+  period: string
+  features: string[]
+}
   onClose: () => void
   onPurchase: () => void
   purchasing: boolean
@@ -129,14 +87,15 @@ function GooglePlayPurchaseDialog({
         </div>
 
         <div className="px-6 pb-8 pt-2">
-          {/* Google Play Header */}
           <div className="flex items-center gap-3 mb-5">
             <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-green-500/20">
               <Smartphone className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h3 className="font-bold text-base">Google Play Billing</h3>
-              <p className="text-xs text-muted-foreground">Secure in-app purchase</p>
+              <h3 className="font-bold text-base">Razorpay Secure Payment</h3>
+              <p className="text-xs text-muted-foreground">
+100% Secure Payment via Razorpay
+</p>
             </div>
           </div>
 
@@ -171,7 +130,8 @@ function GooglePlayPurchaseDialog({
           <div className="flex items-center gap-3 mb-5 px-1">
             <Shield className="h-4 w-4 text-green-600 shrink-0" />
             <p className="text-[11px] text-muted-foreground leading-relaxed">
-              Payment handled securely by Google Play. Cancel anytime from Play Store → Subscriptions.
+            Payment handled securely by Razorpay.
+Supports UPI, Cards, Wallets and Net Banking.
             </p>
           </div>
 
@@ -183,13 +143,16 @@ function GooglePlayPurchaseDialog({
                 ? 'bg-primary hover:bg-primary/90 text-primary-foreground shadow-primary/25'
                 : 'bg-safe hover:bg-safe/90 text-safe-foreground shadow-safe/25'
             )}
-            onClick={onPurchase}
+           onClick={() => {
+  console.log("BUTTON PRESSED");
+  onPurchase();
+}}
             disabled={purchasing}
           >
             {purchasing ? (
-              <><Zap className="h-5 w-5 mr-2 animate-pulse" /> Processing via Google Play...</>
+              <><Zap className="h-5 w-5 mr-2 animate-pulse" /> Opening Razorpay...</>
             ) : (
-              <><Smartphone className="h-5 w-5 mr-2" /> Buy — {plan.currency}{plan.price}{plan.period}</>
+              <><Smartphone className="h-5 w-5 mr-2" /> Pay Now — {plan.currency}{plan.price}{plan.period}</>
             )}
           </Button>
 
@@ -207,52 +170,173 @@ function GooglePlayPurchaseDialog({
 }
 
 export function PremiumScreen() {
+
   const { profile, setProfile, setSubscriptionPlan, setShowAds, navigateBack, setCurrentScreen } = useAppStore()
-  const [subscribing, setSubscribing] = useState<string | null>(null)
-  const [selectedPlan, setSelectedPlan] = useState<typeof plans[number] | null>(null)
 
-  const handleSubscribe = async () => {
-    if (!selectedPlan || selectedPlan.id === 'free' || profile?.isPremium) return
+  const pricing = getPricing(profile?.country || "IN")
 
-    setSubscribing(selectedPlan.id)
-    try {
-      // Simulate Google Play Billing purchase
-      await new Promise(resolve => setTimeout(resolve, 2500))
+  const [selectedPlan, setSelectedPlan] = useState<any>(null)
+const [subscribing, setSubscribing] = useState<string | null>(null)
 
-      const res = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          plan: selectedPlan.id,
-          provider: 'google_play',
-          productId: selectedPlan.productId,
-          amount: selectedPlan.price,
-          currency: 'INR',
-        }),
-      })
+const plans = [
+  {
+    id: 'free',
+    name: 'Free Trial',
+    price: 0,
+    currency: '',
+    period: '',
+    subtitle: '2 Days Free',
+    features: [
+      'All premium features for 2 days',
+      'Unlimited scans during trial',
+      'Food combination checker',
+      'Basic AI analysis',
+    ],
+    limitations: [
+      'Ends after 2 days',
+      'Must subscribe to continue',
+    ],
+    cta: 'Start Free Trial',
+    popular: false,
+    color: 'muted',
+  },
+  {
+    id: 'monthly',
+    name: 'Monthly',
+    price: pricing.monthly,
+    currency: pricing.currencyCode,
+    period: '/month',
+    subtitle: 'Some ads included',
+    productId: 'com.safeeat.premium.monthly',
+    features: [
+      'Unlimited scans',
+      'Food combination checker',
+      'Medicine + Food check',
+      'Pregnancy & Kids safe',
+      'Gym diet checker',
+      'Priority AI analysis',
+      'Chat AI assistant',
+    ],
+    limitations: [
+      'Contains some ads',
+    ],
+    cta: 'Subscribe Monthly',
+    popular: true,
+    color: 'primary',
+    badge: 'POPULAR',
+  },
+  {
+    id: 'yearly',
+    name: 'Yearly',
+    price: pricing.yearly,
+    currency: pricing.currencyCode,
+    period: '/year',
+    subtitle: 'No ads — Best experience',
+    monthlyEquivalent: `${pricing.currency}${(pricing.yearly / 12).toFixed(2)}/mo`,
+    productId: 'com.safeeat.premium.yearly',
+    features: [
+      'Everything in Monthly',
+      'Zero ads',
+      'Priority 24/7 support',
+      'Export reports (PDF)',
+      'Early access to new features',
+      'Family sharing (up to 3)',
+    ],
+    limitations: [],
+    cta: 'Subscribe Yearly',
+    popular: false,
+    color: 'safe',
+    badge: 'BEST VALUE',
+  },
+]
+  
+const loadRazorpay = () => {
+  return new Promise<boolean>((resolve) => {
+    const script = document.createElement("script")
+    script.src = "https://checkout.razorpay.com/v1/checkout.js"
 
-      const data = await res.json()
-      if (data.success) {
-        setSubscriptionPlan(selectedPlan.id)
-        setShowAds(selectedPlan.id === 'monthly')
-        setProfile({
-          ...profile!,
-          isPremium: true,
-        })
-        toast.success(selectedPlan.id === 'yearly'
-          ? '🎉 Welcome to Yearly Premium — No Ads!'
-          : '🎉 Welcome to Monthly Premium!')
-        setSelectedPlan(null)
-        setCurrentScreen('payment-success')
-      }
-    } catch {
-      toast.error('Payment failed. Please try again.')
-      setSelectedPlan(null)
-    } finally {
-      setSubscribing(null)
-    }
+    script.onload = () => resolve(true)
+    script.onerror = () => resolve(false)
+
+    document.body.appendChild(script)
+  })
+}
+
+const handleSubscribe = async () => {
+  
+
+  console.log("BUY CLICKED");
+console.log(selectedPlan);
+console.log(process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID);
+  if (!selectedPlan || selectedPlan.id === "free") return;
+
+  const loaded = await loadRazorpay();
+
+  if (!loaded) {
+    toast.error("Razorpay SDK failed to load");
+    return;
   }
 
+  try {
+    const orderRes = await fetch("/api/create-order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount: selectedPlan.price,
+        plan: selectedPlan.id,
+        currency: pricing.currencyCode,
+      }),
+    });
+
+    const result = await orderRes.json();
+
+const options = {
+    key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+    amount: result.order.amount,
+    currency: result.order.currency,
+    order_id: result.order.id,
+    name: "SafeEat AI",
+    description: selectedPlan.name + " Subscription",
+      handler: async (response: any) => {
+        const verify = await fetch("/api/verify-payment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+  ...response,
+  plan: selectedPlan.id,
+  amount: selectedPlan.price,
+  currency: pricing.currencyCode,
+}),
+        });
+
+        const data = await verify.json();
+
+        if (data.success) {
+          toast.success("Payment Successful 🎉");
+          setCurrentScreen("payment-success");
+        } else {
+          toast.error("Payment Verification Failed");
+        }
+      },
+
+      theme: {
+        color: "#22c55e",
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+
+  } catch (err) {
+    console.error(err);
+    toast.error("Payment Failed");
+  }
+};
+ 
   return (
     <>
       <motion.div
@@ -427,7 +511,7 @@ export function PremiumScreen() {
           </motion.div>
         ))}
 
-        {/* Google Play Billing trust badge */}
+        {/* Razorpay Secure Payment */}
         <motion.div variants={item}>
           <Card className="p-4 bg-muted/30 border-border/30">
             <div className="flex items-center gap-3">
@@ -435,25 +519,24 @@ export function PremiumScreen() {
                 <Smartphone className="h-5 w-5 text-white" />
               </div>
               <div>
-                <p className="text-xs font-semibold">Secured by Google Play Billing</p>
-                <p className="text-[10px] text-muted-foreground">Cancel anytime from Play Store → Subscriptions</p>
+                <p className="text-xs font-semibold">Secured by Razorpay</p>
+                <p className="text-[10px] text-muted-foreground">UPI • Cards • Wallet • Net Banking</p>
               </div>
             </div>
           </Card>
         </motion.div>
       </motion.div>
+<AnimatePresence>
+  {selectedPlan && (
+    <RazorpayPurchaseDialog
+      plan={selectedPlan}
+      onClose={() => setSelectedPlan(null)}
+      onPurchase={handleSubscribe}
+      purchasing={subscribing === selectedPlan.id}
+    />
+  )}
+</AnimatePresence>
 
-      {/* Google Play Purchase Dialog */}
-      <AnimatePresence>
-        {selectedPlan && (
-          <GooglePlayPurchaseDialog
-            plan={selectedPlan}
-            onClose={() => setSelectedPlan(null)}
-            onPurchase={handleSubscribe}
-            purchasing={subscribing === selectedPlan.id}
-          />
-        )}
-      </AnimatePresence>
     </>
   )
 }

@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
       status: 'active',
       startDate: now,
       endDate,
-      amount: amount || (plan === 'monthly' ? 299 : 1999),
+      amount: amount || (plan === 'monthly' ? 149 : 999),
       currency: currency || 'INR',
     }
 
@@ -128,3 +128,4 @@ export async function DELETE() {
     return NextResponse.json({ error: 'Failed to cancel subscription' }, { status: 500 })
   }
 }
+

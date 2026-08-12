@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "next-themes";
 import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
 import { CapacitorInit } from "@/components/CapacitorInit";
+import Script from "next/script";
+
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -151,7 +153,13 @@ export default function RootLayout({
         />
         <CapacitorInit />
         <ServiceWorkerRegistration />
+        import Script from "next/script"
+        <Script
+  src="https://checkout.razorpay.com/v1/checkout.js"
+  strategy="beforeInteractive"
+/>
       </body>
     </html>
   );
 }
+

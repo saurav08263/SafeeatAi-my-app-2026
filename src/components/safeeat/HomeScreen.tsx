@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, type Variants } from 'framer-motion'
 import { useAppStore } from '@/lib/store'
 import {
   ScanLine, TrendingUp, Crown,
@@ -16,12 +16,12 @@ import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { AdBanner } from './AdBanner'
 
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { staggerChildren: 0.04 } },
 }
 
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 10 },
   show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 340, damping: 28 } },
 }
@@ -697,3 +697,4 @@ function getGreeting(): string {
   if (hour < 17) return 'Good Afternoon'
   return 'Good Evening'
 }
+

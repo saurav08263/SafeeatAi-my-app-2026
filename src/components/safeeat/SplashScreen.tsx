@@ -334,3 +334,4 @@ export function SplashScreen({ onComplete, duration = 2000 }: SplashScreenProps)
     </AnimatePresence>
   )
 }
+

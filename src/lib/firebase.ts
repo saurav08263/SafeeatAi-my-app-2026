@@ -63,3 +63,4 @@ export async function initFirebase() {
 }
 
 export { app, auth, firestore as db };
+

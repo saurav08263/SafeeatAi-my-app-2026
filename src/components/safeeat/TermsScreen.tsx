@@ -77,8 +77,8 @@ DoctorPulse AI expressly disclaims all liability for any actions taken or not ta
     title: '4. Subscription & Payments',
     content: `Subscription Plans:
 SafeEat AI offers the following subscription plans:
-- Monthly Plan: ₹299/month (Indian Rupees)
-- Yearly Plan: ₹1,999/year (Indian Rupees)
+- Monthly Plan: ₹149/month (Indian Rupees)
+- Yearly Plan: ₹999/year (Indian Rupees)
 - Prices are subject to change with prior notice
 
 Payment Processing:
@@ -558,7 +558,7 @@ export function TermsScreen() {
           <div className="grid grid-cols-2 gap-2.5">
             {[
               { label: 'Not Medical Advice', icon: AlertTriangle, color: 'text-warn' },
-              { label: '₹299/mo or ₹1,999/yr', icon: CreditCard, color: 'text-primary' },
+              { label: '₹149/mo or ₹999/yr', icon: CreditCard, color: 'text-primary' },
               { label: 'Indian Law Applies', icon: Scale, color: 'text-safe' },
               { label: 'Cancel Anytime', icon: Scissors, color: 'text-warn' },
             ].map((point) => {
@@ -658,3 +658,4 @@ export function TermsScreen() {
     </motion.div>
   )
 }
+

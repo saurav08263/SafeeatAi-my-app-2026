@@ -167,8 +167,8 @@ export async function GET() {
       <h2><span class="num">4</span> Subscription & Payments</h2>
       <p><strong>Plans:</strong></p>
       <ul>
-        <li><strong>Monthly Plan:</strong> ₹299/month (includes minimal ads)</li>
-        <li><strong>Yearly Plan:</strong> ₹1,999/year (ad-free, save 44%)</li>
+        <li><strong>Monthly Plan:</strong> ₹149/month (includes minimal ads)</li>
+        <li><strong>Yearly Plan:</strong> ₹999/year (ad-free, save 44%)</li>
         <li><strong>Free Trial:</strong> 2-day free trial available for new users</li>
       </ul>
       <p style="margin-top:12px"><strong>Payment Terms:</strong></p>
@@ -341,3 +341,4 @@ export async function GET() {
     },
   })
 }
+

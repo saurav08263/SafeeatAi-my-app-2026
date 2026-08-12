@@ -286,22 +286,24 @@ export async function POST(request: NextRequest) {
         : imageData;
 
       const completion = await client.chat.completions.create({
-model: "openai/gpt-4o-mini",
+  model: "openai/gpt-4o-mini",
+  max_tokens: 1200,
+  temperature: 0.2,
   messages: [
     {
       role: "user",
       content: [
-  {
-    type: "text",
-    text: `${systemPrompt}\nAnalyze this food image for safety.`,
-  },
-  {
-    type: "image_url",
-    image_url: {
-      url: imageData,
-    },
-  },
-],
+        {
+          type: "text",
+          text: `${systemPrompt}\nAnalyze this food image for safety.`,
+        },
+        {
+          type: "image_url",
+          image_url: {
+            url: imageData,
+          },
+        },
+      ],
     },
   ],
 });
@@ -344,8 +346,10 @@ console.log(JSON.stringify(parsed, null, 2));
         userPrompt = `Analyze food: ${text}`;
     }
 
-    const completion = await client.chat.completions.create({
+   const completion = await client.chat.completions.create({
   model: "openai/gpt-4o-mini",
+  max_tokens: 1200,
+  temperature: 0.2,
   messages: [
     {
       role: "user",
